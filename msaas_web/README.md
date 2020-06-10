@@ -14,7 +14,7 @@
 * 控制层: 略;
 
 ## 全局的一些个处理
-* 使用`jasypt-spring-boot-starter`对配置文件中的敏感信息做了加密, 具体[请了解](https://github.com/Ashesoft/iosplay/blob/master/Jasypt%20%E5%9C%A8%20springboot%20%E4%B8%AD%E7%9A%84%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8.md);
+* 使用`jasypt-spring-boot-starter`对配置文件中的敏感信息做了加密, 具体[请了解](https://github.com/Ashesoft/msaas/blob/master/msaas_web/Jasypt%20%E5%9C%A8%20springboot%20%E4%B8%AD%E7%9A%84%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8.md);
 * 使用`java-jwt`对资源访问做了简单的授权跟鉴权;
 * 对demo中可能出现的异常做了, 做了全局的异常处理;
 * 使用`jaudiotagger`对音频文件做简单的处理后存库;
