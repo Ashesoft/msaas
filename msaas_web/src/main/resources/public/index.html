@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>音乐播放</title>
+<link rel="stylesheet" href="/css/core.css" />
+<link rel="stylesheet" href="/css/frame.css" />
+<link rel="stylesheet" href="/css/player.css" />
+<script type="text/javascript" src="/js/h5.js"></script>
+<script type="text/javascript" src="/js/audio/content.js"></script>
+</head>
+<body>
+<div id="g-topbar" class="g-topbar" style="width: 1903px; top: 0px;">
+    <div class="m-top">
+        <div class="wrap f-cb">
+            <h1 class="logo">
+                <a href="/index.html">IMUSIC</a>
+            </h1>
+            <ul class="m-nav j-tflag">
+                <li class="fst">
+                    <span>
+                        <a href="/discover/discover.html" class="z-slt">
+                            <em>发现音乐</em>
+                            <sub class="cor">&nbsp;</sub>
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        <a href="/my/other.html">
+                            <em>我的音乐</em>
+                            <sub class="cor">&nbsp;</sub>
+                        </a>
+                    </span>
+                </li>
+                <li class="lst">
+                    <span>
+                        <a href="/friend/other.html">
+                            <em>朋友</em>
+                            <sub class="cor">&nbsp;</sub>
+                            <i class="dot j-t" style="display:none;"></i>
+                        </a>
+                    </span>
+                </li>
+            </ul>
+            <div class="m-tophead f-pr j-tflag" id="nav-login-bar">
+                <a href="#" class="link s-fc3">登录</a>
+                <div class="m-tlist j-uflag" style="display:none;">
+                    <div class="inner"></div>
+                    <i class="arr"></i>
+                </div>
+            </div>
+            <a href="/creator" target="_blank" class="m-topvd f-pr m-creator-center">创作者中心</a>
+            <div class="m-srch f-pr j-suggest" id="g_search">
+                <div class="srchbg">
+                    <span class="parent">
+                        <input type="text" name="srch" id="srch" class="txt j-flag" placeholder="音乐/视频/电台/用户" value="" style="opacity: 1;">
+                    </span>
+                </div>
+                <div class="j-showoff u-showoff f-hide"><p>现在支持搜索MV啦~</p></div>
+                <span class="j-flag" style="display:none;">&nbsp;</span>
+                <div class="u-lstlay j-flag" style="display:none;" id="auto-id-qsk4eHcIwLTdu6VU">
+                    <div class="m-schlist">
+                        <p class="note s-fc3"><a class="s-fc3 xtag" href="/search/#/?s=ds&amp;type=1002">搜“ds” 相关用户</a> &gt;</p>
+                        <div class="rap">
+                            <div class="itm f-cb">
+                                <h3 class="hd">
+                                    <i class="icn u-icn u-icn-26"></i>
+                                    <em class="f-fl">单曲</em>
+                                </h3>
+                                <ul class=" f-cb">
+                                    <li><a class="s-fc0 f-thide xtag" href="/song?id=31341931">賭神-卢冠廷&nbsp;</a></li>
+                                    <li><a class="s-fc0 f-thide xtag" href="/song?id=566443175">读书郎-宝宝巴士&nbsp;</a></li>
+                                    <li><a class="s-fc0 f-thide xtag" href="/song?id=1300592481">读书郎-小蓓蕾组合&nbsp;</a></li>
+                                    <li><a class="s-fc0 f-thide xtag" href="/song?id=34218889">読書-宫内优里&nbsp;星野源&nbsp;</a></li>
+                                </ul>
+                            </div>
+                            <div class="itm f-cb">
+                                <h3 class="hd">
+                                    <i class="icn u-icn u-icn-27"></i>
+                                    <em class="f-fl">歌手</em>
+                                </h3>
+                                <ul class="odd f-cb">
+                                    <li><a class="s-fc0 f-thide xtag" href="/artist?id=12128090">Bader.<span class="s-fc7 f-tdn">DS</span>D</a></li>
+                                </ul>
+                            </div>
+                            <div class="itm f-cb">
+                                <h3 class="hd">
+                                    <i class="icn u-icn u-icn-28"></i>
+                                    <em class="f-fl">专辑</em>
+                                </h3>
+                                <ul class=" f-cb">
+                                    <li><a class="s-fc0 f-thide xtag" href="/album?id=3169511">环球<span class="s-fc7 f-tdn">DS</span>D视听之王-张学友</a></li>
+                                    <li><a class="s-fc0 f-thide xtag" href="/album?id=3233321">世纪精选&nbsp;<span class="s-fc7 f-tdn">DS</span>D-谷村新司</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-subnav m-subnav-up f-pr j-tflag f-hide"></div>
+    <div id="g_nav2" class="m-subnav j-tflag">
+        <div class="wrap f-pr">
+            <ul class="nav">
+                <li>
+                    <a data-module="discover" href="/discover" class="z-slt"><em>推荐</em></a>
+                </li>
+                <li><a data-module="toplist" href="/discover/toplist"><em>排行榜</em></a></li>
+                <li>
+                    <a data-module="playlist" href="/discover/playlist">
+                        <em class="f-pr" style="padding: 0 15px 0 11px;">歌单<span class="f-pa f-r-white-icon" style="display:inline-block;width:8px;height:8px;top:2px;background-size:cover;"></span></em>
+                    </a>
+                </li>
+                <li>
+                    <a data-module="djradio" href="/discover/djradio"><em>主播电台</em></a>
+                </li>
+                <li>
+                    <a data-module="artist" href="/discover/artist"><em>歌手</em></a>
+                </li>
+                <li>
+                    <a data-module="album" href="/discover/album"><em>新碟上架</em></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<iframe name="contentFrame" id="g_iframe" class="g-iframe" scrolling="auto" frameborder="0" src="about:blank" allow="fullscreen"></iframe>
+<div class="audio-player">
+    <div class="hand"></div>
+    <div class="player-wrapper">
+        <div class="btns">
+            <div class="prev icon"></div>
+<!--            <div class="play-pause icon playing"></div>-->
+            <div class="play-pause icon paused"></div>
+            <div class="next icon"></div>
+        </div>
+        <img class="cover" src="" onerror="javascript:this.src='/img/audio/player/red-qtbg-big.png',this.onerror=null;">
+        <div class="detail">
+            <div class="program-meta">
+                <span class="program-title">2019年最后一天，局座来汇报工作了！</span>
+                <span class="podcaster">张召忠</span>
+            </div>
+            <div class="channel-meta">
+                <span class="channel-title">局座悄悄话</span>
+            </div>
+            <div class="progress">
+                <div class="time">
+                    <span class="time-elapsed">00:00</span>
+                    /
+                    <span class="time-total">00:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-bar-total"></div>
+                    <div class="progress-bar-cache"></div>
+                    <div class="progress-bar-elapsed">
+                        <span class="progress-bar-handle"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="volume">
+            <div class="volume-icon icon"></div>
+            <div class="volume-bar">
+                <div class="volume-bar-full"></div>
+                <div class="volume-bar-current">
+                    <span class="volume-bar-handle"></span>
+                </div>
+            </div>
+        </div>
+        <div class="play-rate-view">
+            <div class="rate-select" style="display:none">
+                <div class="rate-option">2.0</div>
+                <div class="rate-option">1.75</div>
+                <div class="rate-option">1.25</div>
+                <div class="rate-option" style="color: rgb(225, 52, 48);">1.0</div>
+                <div class="rate-option">0.8</div>
+                <div class="rate-option">0.5</div>
+            </div>
+            <a href="javascript:;" class="btn play-rate-title">x 1.0</a>
+        </div>
+        <div class="btns action-buttons">
+            <span class="share-btn"></span>
+            <span class="download-btn"></span>
+        </div>
+        <div class="history-icon icon"></div>
+        <div class="playlist-icon icon"></div>
+    </div>
+    <div class="history-wrapper">
+        <div class="history">
+            <div class="header">
+                <span class="header-text">收听历史</span>
+                <div class="clear-all">
+                    <span class="clear-all-btn"></span>
+                    <span class="clear-all-text">清空列表</span>
+                </div>
+            </div>
+            <div class="content"></div>
+            <div class="shrink-btn"></div>
+        </div>
+    </div>
+    <div class="playlist-wrapper">
+        <div class="playlist-collection">
+            <div class="header">
+                <div class="header-text-wrapper header-text-wrapper-channel_ondemand active">
+                    <span class="header-text">播放列表</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="playlist"></div>
+            </div>
+            <div class="shrink-btn"></div>
+        </div>
+    </div>
+    <div class="locker">
+        <div class="locker-btn locked"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/audio/core.js"></script>
+<script type="text/javascript" src="/js/audio/player.js"></script>
+</body>
+</html>

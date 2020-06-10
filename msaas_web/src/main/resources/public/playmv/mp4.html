@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>mp4.html</title>
+</head>
+<body>
+<p style="background-color:deeppink; font-size:25px; text-align:center;">ios端在线播放视频测试</p>
+<div style="width:960px; margin:0 auto; display:flex;background-color: darkgray;">
+    <div class="left" style="width:30%;">
+        <h3 style="text-align:center;">视频列表</h3>
+        <ul style="width:235px;">
+            <li><a href="javascript:;">MySQL事务与锁详解</a></li>
+            <li><a href="javascript:;">了解原理机制到底胜在何处之B+TREE索引探秘</a></li>
+            <li><a href="javascript:;">亿级数据量系统的性能保证之分库分表mycat</a></li>
+            <li><a href="javascript:;">代码妙笔生花 让你系统优雅十倍的秘密注解+aop</a></li>
+            <li><a href="javascript:;">大牛带你涨“姿势”~手写服务的负载框架zk</a></li>
+            <li><a href="javascript:;">手写MyBatis，直击优秀开源框架灵魂</a></li>
+            <li><a href="javascript:;">手撕Spring，看设计模式是如何优雅落地到源码中的</a></li>
+            <li><a href="javascript:;">秒懂Spring，码农变大牛</a></li>
+            <li><a href="javascript:;">解读Tomcat架构源码设计理念</a></li>
+            <li><a href="javascript:;">阿里p6面试题之并发编程原理分析</a></li>
+            <li><a href="javascript:;">高性能通信NIO原理详解1</a></li>
+            <li><a href="javascript:;">高性能通信NIO原理详解2</a></li>
+        </ul>
+    </div>
+    <div class="right" style="width:70%;">
+        <video id="my_video" height="100%" width="100%" controls preload="auto">浏览器不支持</video>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/h5.js"></script>
+<script type="text/javascript">
+(()=>{
+    var video = H5("#my_video"),
+    ass = H5("ul li a"),
+    url = location.origin.concat("/video/bunny.mp4");
+    H5.ajax("get", null, url, (res)=>{
+        video.attr("src", URL.createObjectURL(res));
+    }, 'blob');
+
+    ass.forEach(a => {
+        a.on("click", function(){
+            var uri = `/mv/${a.text}.mp4`;
+            H5.ajax("get", null, uri, (res) => {
+                video.attr("src", URL.createObjectURL(res));
+            }, "blob");
+        });
+    });
+})();
+</script>
+</html>

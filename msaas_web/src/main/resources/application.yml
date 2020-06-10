@@ -1,0 +1,58 @@
+#配置html页面解析模板
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+  application:
+    name: service=msaas
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # 数据库配置
+  datasource:
+    # driver-class-name: com.mysql.jdbc.Driver # 被弃用了
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springboot?charset=utf8mb4&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    # 使用jasypt加密后的
+    username: CodeSheep(k8xGp81xIDrTmmShqpkXZg5+ZlH8e4MN8TvMz6I8NvlWoe2SMjmchxHpMeNzXoE6)
+    password: CodeSheep(JZKecUE8aqUuOLJnbI4zKyNEARWx3MxPNOdLXz/5IzYBatH/mU3JOdLfds/NCwTr)
+    # 默认连接池配置
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+
+#配置服务端口为8181->
+server:
+  port: 8888
+
+#自定义资源映射
+address:
+  audio:
+    intercept: /music/**
+    redirect: file:D:/music/
+  video:
+    intercept: /mv/**
+    redirect: file:D:/videos/
+
+jasypt:
+  encryptor:
+    bean: codeSheepEncryptorBean
+    property:
+      prefix: CodeSheep(
+      suffix: )
+
+jwt:
+  # 密钥
+  secret: CodeSheep(KkWM1ZhG4Lk2WfiFq2a/L2QUVQ1EqT9Be73WDGWPLL0b8jXVvY5gaYH2f0EvPy44)
+  # 秒
+  expire: 1800
+# springboot 默认的静态资源路径有
+# /META-INF/resources/
+# /resources/
+# /static
+# /public/
+# 采用了bean的方式配置会覆盖掉默认的方式
+# WebMvcConfigurer 可以额外的进行自定义配置, 并且不影响springboot的自动装配
+# WebMvcConfigurationSupport 也可以自定义配置, 但是会影响到springboot的自动装配

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>video.html</title>
+    <script type="text/javascript">
+       window.onload = () => {
+            var video = document.getElementById("my_video");
+            var assetURL = '/video/bunny.mp4';
+            var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+            if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
+                var mediaSource = new MediaSource;
+                //console.log(mediaSource.readyState); // closed
+                video.src = URL.createObjectURL(mediaSource);
+                mediaSource.addEventListener('sourceopen', sourceOpen);
+            } else {
+                console.error('Unsupported MIME type or codec: ', mimeCodec);
+            }
+
+            function sourceOpen () {
+                //console.log(this.readyState); // open
+                var mediaSource = this;
+                var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+                fetchAB(assetURL, function (buf) {
+                    sourceBuffer.addEventListener('updateend', function () {
+                        mediaSource.endOfStream();
+                        video.play();
+                        console.log(mediaSource.readyState); // ended
+                    });
+                    sourceBuffer.appendBuffer(buf);
+                });
+            }
+
+            function fetchAB (url, cb) {
+                console.log(url);
+                var xhr = new XMLHttpRequest;
+                xhr.open('get', url);
+                xhr.responseType = 'arraybuffer';
+                //xhr.responseType = 'blob';
+                xhr.onload = function () {
+                  cb(xhr.response);
+                };
+                xhr.send();
+            }
+       }
+    </script>
+    <style type="text/css">
+        #my_video{
+            margin: auto; position: absolute; top: 0px; left:0px; bottom: 0px; right: 0px; max-width: 100%; max-height: 100%;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(41,41,41); margin:8px; display:block;">
+<video id="my_video" src="" autoplay controls loop preload="auto">浏览器不支持</video>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<div name="ntp" id="ntp-login-nav">
+    <div class="lyct lyct-1">
+        <div class="n-log2 n-log2-1 f-cb">
+            <div class="u-main">
+                <div class="u-plt"></div>
+                <div class="f-mgt10">
+                    <a href="javascript:;" class="u-btn2 u-btn2-2" data-action="login" data-type="mobile">
+                        <i>手机号登录</i>
+                    </a>
+                </div>
+                <div class="f-mgt10">
+                    <a href="javascript:;" class="u-btn2 u-btn2-1" data-action="reg">
+                        <i>注&#12288;册</i>
+                    </a>
+                </div>
+            </div>
+            <div class="u-alt">
+                <ul>
+                    <li>
+                        <a href="https://music.163.com/api/sns/authorize?snsType=10&clientType=web2&callbackType=Login&forcelogin=true"
+                           target="_blank" data-action="login" data-type="thirdparty">
+                            <i class="u-mlg2 u-mlg2-wx"></i>
+                            微信登录
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://music.163.com/api/sns/authorize?snsType=5&clientType=web2&callbackType=Login&forcelogin=true"
+                           target="_blank" data-action="login" data-type="thirdparty">
+                            <i class="u-mlg2 u-mlg2-qq"></i>
+                            QQ登录
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://music.163.com/api/sns/authorize?snsType=2&clientType=web2&callbackType=Login&forcelogin=true"
+                           target="_blank" data-action="login" data-type="thirdparty">
+                            <i class="u-mlg2 u-mlg2-sn"></i>
+                            微博登录
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-action="login" data-type="netease">
+                            <i class="u-mlg2 u-mlg2-wy"></i>
+                            网易邮箱帐号登录
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="u-official-terms">
+                <input type="checkbox" id="j-official-terms">
+                <label for="j-official-terms" style="margin-left: 2px;">同意</label>
+                <a href="http://st.music.163.com/official-terms/service" target="_blank" style="color:#507DAF">《服务条款》</a>
+                <a href="http://st.music.163.com/official-terms/privacy" target="_blank" style="color:#507DAF">《隐私政策》</a>
+                <a href="https://st.music.163.com/official-terms/children" target="_blank" style="color:#507DAF">《儿童隐私政策》</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="ntp-login-mobile">
+    <div class="lyct lyct-1">
+        <div class="n-log2 n-log2-2">
+            <div class="j-mob"></div>
+            <div class="f-mgt10">
+                <input type="password" name="pw" id="pw" class="j-pwd u-txt" placeholder="请输入密码" autocomplete="new-password">
+            </div>
+            <div class="j-err u-err" style="display:none;">
+                <i class="u-icn u-icn-25"></i>
+                <span></span>
+            </div>
+            <div class="f-mgt10">
+                <label class="s-fc3">
+                    <input type="checkbox" checked="checked" class="j-auto u-auto">自动登录
+                </label>
+                <a href="#" class="f-fr s-fc3" data-action="forget">忘记密码？</a>
+            </div>
+            <div class="f-mgt20">
+                <a class="j-primary u-btn2 u-btn2-2" href="#" data-action="login">
+                    <i>登&#12288;录</i>
+                </a>
+            </div>
+        </div>
+        <div class="js-btmbar n-loglink2 f-cb">
+            <a href="javascript:;" data-action="select" class="f-fl s-primary">&lt;&nbsp;&nbsp;其他登录方式</a>
+            <a href="javascript:;" data-action="reg" class="f-fr">没有帐号？免费注册&nbsp;&nbsp;&gt;</a>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="ntp-login-netease">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-2">
+            <div class="f-pr" style="z-index:5;">
+                <input type="text" name="e" id="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+                <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+            </div>
+            <div class="f-mgt10">
+                <input type="password" name="epw" id="epw" class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+            </div>
+            <div class="js-captcha"></div>
+            <div class="ScapTcha js-scaptcha"></div>
+            <div class="u-err">
+                <i class="u-icn u-icn-25"></i>
+                <span></span>
+            </div>
+            <div class="f-mgt10">
+                <label class="s-fc3">
+                    <input type="checkbox" checked="checked" class="u-auto">自动登录
+                </label>
+                <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+            </div>
+            <div class="f-mgt20">
+                <a class="js-primary u-btn2 u-btn2-2" href="#" data-action="login">
+                    <i>登&#12288;录</i>
+                </a>
+            </div>
+        </div>
+        <div class="n-loglink2">
+            <a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a>
+        </div>
+    </div>
+</div>
+<div name="jst" id="jst-login-suggest">
+    {list suggests as item}
+
+    <li class="f-thide">
+        <a href="#" data-action="suggest" title="${item|escape}">${item|escape}</a>
+    </li>
+    {/list}
+
+</div>
+<div name="ntp" id="ntp-reg-mobile">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-2">
+            <div class="s-fc3">
+                <label>手机号：</label>
+            </div>
+            <div class="j-mob f-mgt10"></div>
+            <div class="f-mgt10 s-fc3">
+                <label>密码：</label>
+            </div>
+            <div class="f-mgt10">
+                <input type="password" class="j-pwd u-txt" placeholder="设置登录密码，不少于6位" autocomplete="new-password">
+            </div>
+            <div class="j-err u-err" style="display:none;">
+                <i class="u-icn u-icn-25"></i>
+                <span></span>
+            </div>
+            <div class="pwd-validation f-hide">
+                <div class="j-err u-err j-pwd-valid">
+                    <i class="u-icn"></i>
+                    <span>密码不能包含空格</span>
+                </div>
+                <div class="j-err u-err j-pwd-valid">
+                    <i class="u-icn"></i>
+                    <span>包含字母、数字、符号中至少两种</span>
+                </div>
+                <div class="j-err u-err j-pwd-valid">
+                    <i class="u-icn"></i>
+                    <span>密码长度为6-16位</span>
+                </div>
+            </div>
+            <div class="f-mgt20">
+                <a class="j-btn j-nextstep u-btn2 u-btn2-2" href="javascript:;"
+                   data-action="ok">
+                    <i>下一步</i>
+                </a>
+            </div>
+        </div>
+        <div class="n-loglink2">
+            <a href="javascript:;" data-action="back" class="s-primary">&lt;&nbsp;&nbsp;返回登录</a>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="ntp-verifycaptcha">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-2">
+            <p class="js-tip f-hide u-tip">
+                云音乐将不再支持 <strong class="s-fc1">腾讯微博</strong>
+                登录方式，<br/>请绑定手机号，以免后续无法使用该帐号
+            </p>
+            <div class="js-mobwrap f-hide f-pdb20">
+                <p class="s-fc3">
+                    你的手机号：
+                    <strong class="s-fc1">
+                        +<span class="js-code"></span>
+                        &nbsp;<span class="js-mob"></span>
+                    </strong>
+                </p>
+                <p class="s-fc4 f-mgt5">为了安全，我们会给你发送短信验证码</p>
+            </div>
+            <div class="js-mobwrap f-hide f-pdb10">
+                <div class="s-fc3">
+                    <label class="js-lbl"></label>
+                </div>
+                <div class="j-mob f-mgt10"></div>
+                <div class="s-fc3 f-mgt10">
+                    <label>验证码：</label>
+                </div>
+            </div>
+            <div id="captcha-input"></div>
+            <div class="f-mgt20">
+                <a class="js-next u-btn2 u-btn2-2" href="#" data-action="next">
+                    <i></i>
+                </a>
+            </div>
+        </div>
+        <div class="js-btmbar n-loglink2 f-cb f-hide">
+            <a href="javascript:;" data-action="back" class="js-back f-hide f-fl s-primary">&lt;&nbsp;&nbsp;返回登录</a>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="ntp-oldphonecheck">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-2" style="width:250px;">
+            <p class="js-tip f-hide u-tip">
+                云音乐将不再支持 <strong class="s-fc1">腾讯微博</strong>
+                登录方式，<br/>请绑定手机号，以免后续无法使用该帐号
+            </p>
+            <div class="js-mobwrap f-hide f-pdb20">
+                <p class="s-fc3">
+                    你的手机号：
+                    <strong class="s-fc1">
+                        +<span class="js-code"></span>
+                        &nbsp;<span class="js-mob"></span>
+                    </strong>
+                </p>
+                <p class="s-fc4 f-mgt5">为了安全，我们会给你发送短信验证码</p>
+            </div>
+            <div class="js-mobwrap f-pdb10">
+                <div class="s-fc3">
+                    <label class="js-lbl">输入要解绑的完整手机号，用于验证您的身份</label>
+                </div>
+                <div class="f-mgt10 clearfix">
+                    <div class="u-txtwrap">
+                        <input type="text" class="js-txt u-txt" placeholder="请输入手机号"
+                               style="padding: 5px 6px;float: none;width: 100%">
+                    </div>
+                </div>
+                <div class="u-err f-hide f-fl">
+                    <i class="u-icn u-icn-25"></i>
+                    <span class="errTxt"></span>
+                </div>
+            </div>
+            <div class="f-mgt20 f-tc">
+                <a class="js-next u-btn2 u-btn2-2" href="javascript:void(0);"
+                   data-action="next">
+                    <i>下一步</i>
+                </a>
+            </div>
+        </div>
+        <div class="js-btmbar n-loglink2 f-cb f-hide">
+            <a href="javascript:;" data-action="back" class="js-back f-hide f-fl s-primary">&lt;&nbsp;&nbsp;返回登录</a>
+            <a href="javascript:;" data-action="skip" class="js-skip f-hide f-fr">跳过&nbsp;&nbsp;&gt;</a>
+        </div>
+    </div>
+</div>
+<div name="jst" id="m-verifycaptcha-input">
+    <div class="f-cb">
+        <input style="box-sizing: content-box;" type="text" class="js-input u-txt u-txt2"
+               placeholder="请输入验证码" value="">
+        <span class="js-cd u-cd f-hide"></span>
+        <a href="#" class="js-send u-btn2 u-btn2-1 f-hide" data-action="send">
+            <i>获取验证码</i>
+        </a>
+        <div class="u-err">
+            <i class="u-icn u-icn-25"></i>
+            <span></span>
+        </div>
+    </div>
+</div>
+<div name="jst" id="m-verifycaptcha-input2">
+    <div class="f-cb">
+        <div class="u-word">
+            <input type="text" class="js-input u-txt u-txt3" value="" maxlength="1" data-index="0">
+        </div>
+        <div class="u-word">
+            <input type="text" class="js-input u-txt u-txt3" value="" maxlength="1" data-index="1">
+        </div>
+        <div class="u-word">
+            <input type="text" class="js-input u-txt u-txt3" value="" maxlength="1" data-index="2">
+        </div>
+        <div class="u-word">
+            <input type="text" class="js-input u-txt u-txt3" value="" maxlength="1" data-index="3">
+        </div>
+    </div>
+    <div class="send">
+        <span class="js-cd u-btn u-btn2 f-hide"></span>
+        <a href="#" class="js-send u-btn f-hide" data-action="send" style="height:31px;">
+            <i>获取验证码</i>
+        </a>
+    </div>
+    <div class="u-err">
+        <i class="u-icn u-icn-25"></i>
+        <span></span>
+    </div>
+</div>
+<div name="ntp" id="ntp-setnickname">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-3">
+            <p class="s-fc1 f-tc">取一个昵称，让大家记住你</p>
+            <div class="f-mgt20">
+                <input type="text" class="js-flag u-txt" placeholder="昵称不少于4个字母或2个汉字">
+            </div>
+            <div class="f-cb ScapTcha js-flag" style="margin-top:10px;"></div>
+            <div class="u-err js-flag f-hide">
+                <i class="u-icn u-icn-25"></i>
+                <span></span>
+            </div>
+            <div class="f-mgt20">
+                <a class="u-btn2 u-btn2-2 js-flag" href="#" data-action="ok">
+                    <i>开启云音乐</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="ntp-reg-setting">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-3">
+            <p class="js-tip s-fc1 f-tc f-mg20">取一个昵称，让大家记住你</p>
+            <div class="f-mgt20">
+                <input type="text" class="js-input u-txt" placeholder="昵称不少于4个字母或2个汉字">
+            </div>
+            <div class="u-err f-hide">
+                <i class="u-icn u-icn-25"></i>
+                <span></span>
+            </div>
+            <div class="f-mgt20">
+                <a class="js-primary u-btn2 u-btn2-2" href="#" data-action="ok">
+                    <i>开启云音乐</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="ntp-setpassword">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-3">
+            <p class="js-tip u-tip f-hide">
+                云音乐将不再支持 <strong class="s-fc1">腾讯微博</strong>
+                登录方式，<br/>设置登录密码，以后可以使用手机号登录
+            </p>
+            <p class="js-tip s-fc3 f-hide">
+                你的手机号：
+                <strong class="s-fc1">
+                    +<span class="js-code"></span>
+                    &nbsp;<span class="js-mob"></span>
+                </strong>
+            </p>
+            <p class="js-tip s-fc3 f-mg20 f-tc f-hide">设置密码后，可以直接用该手机号+密码登录</p>
+            <div class="f-mgt10">
+                <input type="password" class="js-input u-txt f-mgt10" placeholder="设置登录密码，不少于6位"
+                       autocomplete="new-password">
+            </div>
+            <div class="u-err f-hide">
+                <i class="u-icn u-icn-25"></i>
+                <span></span>
+            </div>
+            <div class="pwd-validation f-hide">
+                <div class="j-err u-err j-pwd-valid">
+                    <i class="u-icn"></i>
+                    <span>密码不能包含空格</span>
+                </div>
+                <div class="j-err u-err j-pwd-valid">
+                    <i class="u-icn"></i>
+                    <span>包含字母、数字、符号中至少两种</span>
+                </div>
+                <div class="j-err u-err j-pwd-valid">
+                    <i class="u-icn"></i>
+                    <span>密码长度为6-16位</span>
+                </div>
+            </div>
+            <div class="f-mgt20">
+                <a class="js-primary u-btn2 u-btn2-2" href="#" data-action="ok">
+                    <i></i>
+                </a>
+            </div>
+        </div>
+        <div class="js-btmbar n-loglink2 f-cb f-hide">
+            <a href="javascript:;" data-action="skip" class="f-fr">跳过&nbsp;&nbsp;&gt;</a>
+        </div>
+    </div>
+</div>
+<div name="txt" id="txt-login-captcha">
+    <div class="f-mgt10">
+        <input id="captcha" type="text" class="u-txt u-code j-flag" placeholder="请输入验证码">
+        <img class="u-captcha j-flag" src="">
+    </div>
+</div>
+<div name="ntp" id="m-captcha-layer">
+    <div class="wrap">
+        <p class="s-fc3">如果你不是机器人输入验证码一定没问题！</p>
+        <p class="input f-cb j-flag"></p>
+        <div class="u-err f-hide j-flag">
+            <i class="u-icn u-icn-25"></i>
+            帐号或密码错误
+        </div>
+        <div class="btnwrap">
+            <a data-action="ok" class="u-btn2 u-btn2-2 u-btn2-w2" href="javascript:;">
+                <i>确 定</i>
+            </a>
+            <a data-action="cc" class="u-btn2 u-btn2-1 u-btn2-w2" href="javascript:;">
+                <i>取消</i>
+            </a>
+        </div>
+    </div>
+</div>
+<div name="ntp" id="wgt-phone-input">
+    <div class="u-phonewrap">
+        <a class="current" href="javascript:;" data-action="toggle">
+            <span class="j-code">+86</span>
+            <span class="icn u-icn2 u-icn2-17"></span>
+        </a>
+        <div class="txtwrap">
+            <input style="box-sizing: content-box;" type="text" name="p" id="p" class="j-phone txt u-txt" placeholder="请输入手机号" autocomplete="off">
+        </div>
+        <ul class="j-list options f-hide"></ul>
+    </div>
+</div>
+<div name="jst" id="wgt-countrycode-item" style="display:none;">
+    <li class="itm f-cb" data-action="select">
+        <span class="lt"></span>
+        <span class="rt"></span>
+    </li>
+</div>
+<div name="ntp" id="ntp-loginverify">
+    <div class="lyct lyct-1 f-cb">
+        <div class="n-log2 n-log2-3">
+            <div class="pic"></div>
+            <p class="s-fc1 f-tc">
+                由于你在非受信任的设备上登录，需要进行短信验证(<span class="js-mobile"></span>)
+            </p>
+            <div class="f-mgt20">
+                <a class="u-btn2 u-btn2-2 js-flag" data-action="ok">
+                    <i>通过短信验证身份</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div name="jst" id="m-topbar-user-login">
+    <div class="head f-fl f-pr">
+        <img src="">
+        <a href="/user/home?id=1" class="mask"></a>
+        <i class="m-topmsg f-pa f-hide j-uflag"></i>
+    </div>
+    <a href="/user/home?id=1" class="name f-thide f-fl f-tdn f-hide" id="nickname"></a>
+    <div class="m-tlist m-tlist-lged j-uflag" style="display:none;">
+        <ul class="f-cb lb mg">
+            <li>
+                <a class="itm-1" href="/user/home?id=1">
+                    <i class="icn icn-hm"></i>
+                    <em>我的主页</em>
+                </a>
+            </li>
+            <li>
+                <a href="/msg" class="itm-2">
+                    <i class="icn icn-msg"></i>
+                    <em>我的消息</em>
+                    <span class="m-topmsg f-pa f-hide j-uflag"></span>
+                </a>
+            </li>
+            <li>
+                <a href="/user/level" data-action="viewLevel" class="itm-2">
+                    <i class="icn icn-lv"></i>
+                    <em>我的等级</em>
+                </a>
+            </li>
+            <li>
+                <a href="/member" class="itm-2" data-action="bilog" data-log-action="click"
+                   data-log-json='{"type":"myvip","page":"account","label":0}'>
+                    <i class="icn icn-mbr"></i>
+                    <em>VIP会员</em>
+                </a>
+            </li>
+        </ul>
+        <ul class="f-cb ltb mg">
+            <li>
+                <a class="itm-2" href="/user/update">
+                    <i class="icn icn-st"></i>
+                    <em>个人设置</em>
+                </a>
+            </li>
+            <li>
+                <a class="itm-2" href="/login?targetUrl=%2Fst/userbasic/#/nameverify"
+                   target="_blank">
+                    <i class="icn icn-verify"></i>
+                    <em>实名认证</em>
+                </a>
+            </li>
+            <li>
+                <a class="itm-2" href="/web/reward/admin" target="_blank">
+                    <i class="icn icn-reward"></i>
+                    <em>赞赏管理</em>
+                </a>
+            </li>
+            <li>
+                <a class="itm-2" href="/my/#/music/series">
+                    <i class="icn icn-topic"></i>
+                    <em>音乐专栏入口</em>
+                </a>
+            </li>
+            <li>
+                <a class="itm-2" href="/topic/apply">
+                    <i class="icn icn-topic"></i>
+                    <em>音乐专栏入口</em>
+                </a>
+            </li>
+            <li>
+                <a class="itm-2" href="/st/radioweb/radios" target="_blank">
+                    <i class="icn icn-dj"></i>
+                    <em>主播入口</em>
+                </a>
+            </li>
+        </ul>
+        <ul class="f-cb lt">
+            <li>
+                <a class="itm-3" href="#" data-action="logout">
+                    <i class="icn icn-ex"></i>
+                    <em>退出</em>
+                </a>
+            </li>
+        </ul>
+        <i class="arr"></i>
+    </div>
+</div>
+<div name="txt" id="m-topbar-user-unlogin">
+    <a href="#" class="link s-fc3" data-action="login">登录</a>
+    <div class="m-tlist j-uflag">
+        <div class="inner"></div>
+        <i class="arr"></i>
+    </div>
+</div>
