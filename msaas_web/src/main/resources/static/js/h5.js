@@ -746,7 +746,8 @@
                 text: "text/plain",
                 html: "text/html",
                 xml: "application/xml, text/xml",
-                json: "application/json, text/javascript"
+                json: "application/json, text/javascript",
+                script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
             },
             header : new Object
         }
@@ -961,7 +962,10 @@
                 xhr.abort();
                 xhr.open(method, url, !0);
                 xhr.setRequestHeader("Accept",
-                type ? HGData.ajaxSetting.accepts[type.toLowerCase().match(HGData.regexs.notHtmlWhite)] + "; q=0.01" :
+                type && HGData.ajaxSetting.accepts[type.toLowerCase().match(HGData.regexs.notHtmlWhite)]
+                 ?
+                HGData.ajaxSetting.accepts[type.toLowerCase().match(HGData.regexs.notHtmlWhite)] + "; q=0.01"
+                 :
                 HGData.ajaxSetting.accepts["*".toLowerCase().match(HGData.regexs.notHtmlWhite)]
                 );
                 hasContent && body && xhr.setRequestHeader("Content-Type", HGData.ajaxSetting.contentType);
@@ -1267,7 +1271,7 @@
         },
 
         // 获取服务文件
-        load : {
+        loadHtmlText : {
             value : function (elem, url){
                 this.ajax("get", null, url, function(res){
                     elem.html(res);

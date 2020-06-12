@@ -289,7 +289,7 @@ self.iframe = H5("#g_iframe");
                 top_doc.css("top", "0px");
                 iframe_win.document.documentElement.scrollTop = 0;
             }));
-            footer && H5.load(footer, "/footer.html");
+            footer && H5.loadHtmlText(footer, "/footer.html");
         });
     }
 })();

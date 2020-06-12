@@ -260,7 +260,7 @@ a {
 .audio-player .player-wrapper .play-rate-view {
     display: inherit;
     height: 70px;
-    width: 33px;
+    width: 45px;
     margin: 0px 10px;
     position: relative;
 }

@@ -41,11 +41,14 @@
 
     ass.forEach(a => {
         a.on("click", function(){
-            var uri = `/mv/${a.text}.mp4`;
+            var uri = `/mv/java/${a.text}.mp4`;
             H5.ajax("get", null, uri, (res) => {
-                video.attr("src", URL.createObjectURL(res));
+                    video.attr("src", URL.createObjectURL(res));
             }, "blob");
         });
+    });
+    video.on("load", function(){
+        URL.revokeOjectURL(video.attr("src"));
     });
 })();
 </script>

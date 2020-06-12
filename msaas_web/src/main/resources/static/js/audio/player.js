@@ -265,6 +265,14 @@
             }
         }
     });
+    audio.on("error", function(){
+        H5.toast("不支持的多媒体格式", 2);
+        return ++indx >= audios.length
+         ?
+        (indx--, H5.toast("已经是最后一首了!", 2), void 0)
+         :
+        initAudio(indx), playbtn.attr("class", attrMap[2]), audio.play();
+    });
 
     locker.on("click", function (){
         locker.attr("class", attrMap[locker.attr("class")]);
