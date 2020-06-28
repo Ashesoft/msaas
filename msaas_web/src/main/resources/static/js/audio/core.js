@@ -136,7 +136,7 @@ self.fn.register = function(){
                     _j_code.txt(H5(".rt", li).txt());
                     _uloptions.addClass("f-hide");
                 });
-                _uloptions.clearChildren();
+                _bool && _uloptions.clearChildren();
                 _uloptions.copyChildren(newElem);
                 _bool = !1;
             });
@@ -144,7 +144,7 @@ self.fn.register = function(){
         _uloptions.rmvClass("f-hide");
     });
     _j_mob.clearChildren();
-    _j_code.copyChildren(_wgt_input_input);
+    _j_mob.copyChildren(_wgt_input_input);
 
     nextStep.on("click", function(){
         H5.toast("下一步");

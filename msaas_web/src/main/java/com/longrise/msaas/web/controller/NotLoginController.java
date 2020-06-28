@@ -1,5 +1,7 @@
 package com.longrise.msaas.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.longrise.msaas.global.domain.APIException;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.service.NotLoginService;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 //@RestController
 @Controller
@@ -27,11 +31,7 @@ public class NotLoginController {
     @PostMapping("/ulogin")
     public EntityBean index(String uphone, String upassword) {
         EntityBean bean = new EntityBean(1);
-        try{
-            bean.put("uphone", URLEncoder.encode(uphone, "UTF-8"));
-        }catch (UnsupportedEncodingException e){
-            throw new APIException(5000, "参数编码解码失败");
-        }
+        bean.put("uphone", URLEncoder.encode(uphone, StandardCharsets.UTF_8));
         bean.put("upassword", upassword);
         EntityBean bean1 = notLoginService.isOwnerUserByPhone(bean);
         String token = jsonWebTokenConfig.generateToken((String) bean1.get("uphone"));
@@ -39,14 +39,25 @@ public class NotLoginController {
         return bean1;
     }
 
+    @ResponseBody
+    @PostMapping("/thome")
+    public void home(String json) {
+        try {
+            EntityBean bean = new ObjectMapper().readValue(json, EntityBean.class);
+            System.out.println(bean.toJsonString());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
     @GetMapping("/getHtmlTemp")
-    public String getHtmlTemp(){
+    public String getHtmlTemp() {
         return "/htemp";
     }
 
     @ResponseBody
     @PostMapping("/queryPhoneAreaCode")
-    public EntityBean[] queryPhoneAreaCode(){
+    public EntityBean[] queryPhoneAreaCode() {
         return notLoginService.queryPhoneAreaCode();
     }
 }
