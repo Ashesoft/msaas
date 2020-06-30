@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>脂砚斋重评石头记甲戌本</title>
+    <style>
+        .main{width:1000px;margin:0 auto;border:1px solid #cbe4f5}
+        .bookName{width:980px;height:30px;line-height:30px;background:#deeffc;padding:0 10px;border-bottom:1px solid #cbe4f5}
+        .bookName h1{color:#069;font-size:16px;font-weight:bold;margin:0}
+        .bookList{width:980px;padding:0 10px;overflow:hidden}
+        .bookList li{width:475px;height:30px;line-height:30px;border-bottom:1px dotted #ccc;float:left;padding:0 10px 0 5px;overflow:hidden}
+        .bookList li a{color:#069;font-size:17px}
+        .bookList li a:visited{color:#999}
+        .bookDes{width:980px;padding:10px;overflow:hidden}
+        .bookDes .ablum{width:105px;text-align:center;float:left;margin-right:10px;border:1px solid #ccc;padding:1px;overflow:hidden;background:#fff}
+        .bookDes .text{line-height:150%;text-indent:2em;font-size:14px;line-height:28px}
+        .bookDes .text p{margin-bottom:10px}.red{color:#f00}p{line-height:150%}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="bookName">
+        <h1>脂砚斋重评石头记甲戌本</h1>
+    </div>
+    <div class="bookDes">
+        <div class="ablum"><img src="/img/story/hlm/1_140820121217_1.jpg" alt="脂砚斋重评石头记甲戌本"></div>
+        <div class="text">
+            <p>本书与通行印本最大的不同之处在于：可以从中窥见曹雪芹生前创作这部小说的早期原貌，并可直接品味到作者的“红颜知已”脂砚斋在甲戌原稿本上留下的1600余条珍贵批语。这是打开《红楼梦》迷宫的一把钥匙！</p>
+            <p class="red">内容由网友上传，删贴删文见页面底部联系方式</p>
+        </div>
+    </div>
+    <ul class="bookList">
+        <li th:each="book:${list}">
+            <a href="javascript:void(0);" th:href="@{'/book/content/'+${book.sid}}" target="_blank" th:text="${book.stitlename}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

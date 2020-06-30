@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>flv.js demo</title>
+    <link rel="stylesheet" href="http://g.alicdn.com/de/prismplayer/2.3.5/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" src="http://g.alicdn.com/de/prismplayer/2.3.5/aliplayer-min.js"></script>
+</head>
+<body>
+    <div id="J_prismPlayer" class="prism-player"></div>
+    <script>
+        //var videoUrl="/mv/java/m_cc.flv"; //获取的视频地址
+        var videoUrl="/mv/Captures/基础研究与基础教育的关系.mp4"; //获取的视频地址
+        // 初始化播放器
+        var player = new Aliplayer({
+            id: "J_prismPlayer", // 容器id
+            source: videoUrl,        // 视频url
+            width: "100%",       // 播放器宽度
+            height: "400px"      // 播放器高度
+        },function(player){
+          console.log('播放器创建了', player);
+        });
+    </script>
+</body>
+</html>

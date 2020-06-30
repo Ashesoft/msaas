@@ -49,6 +49,15 @@ public class JDBCExcutor implements ApplicationContextAware {
         List<EntityBean[]> list = jdbcTemplate.query(sql, resultSetAction::dataToBeans);
         return list.isEmpty() ? null : list.get(0);
     }
+    /**
+     * 通过条件查询多条数据
+     * @param sql 执行的语句
+     * @return 返回多条数据
+     */
+    public EntityBean[] querys(String sql, EntityBean bean){
+        List<EntityBean[]> list = jdbcTemplate.query(sql, bean, resultSetAction::dataToBeans);
+        return list.isEmpty() ? null : list.get(0);
+    }
 
     /**
      * 查询一条数据

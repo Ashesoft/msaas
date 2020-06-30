@@ -15,7 +15,8 @@ public class CodeSheepEncryptorConfig {
 
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         // 通过使用jvm环境的方式隐蔽jasypr的加密密钥
-        config.setPassword(System.getProperty("jasypt.encryptor.password"));
+        //config.setPassword(System.getProperty("jasypt.encryptor.password"));
+        config.setPassword("iosplay");
         config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
