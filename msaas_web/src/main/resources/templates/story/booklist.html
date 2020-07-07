@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>中国四大文学名著在线阅读，四大名著书籍</title>
+    <style>
+        .main{width:1000px;margin:0 auto;border:1px solid #cbe4f5}
+        .mingzhuTitle{width:980px;height:30px;line-height:30px;background:#deeffc;padding:0 10px;border-bottom:1px solid #cbe4f5}
+        .mingzhuTitle h1{color:#069;font-size:16px;font-weight:bold;margin:0}
+        .bookIndex li{width:104px;padding:1px;overflow:hidden;list-style:none;border:1px solid #ccc;background:#fff;display:inline-grid;margin:0 10px;}
+        .bookIndex li a{text-decoration:none;color:#f81f5a;font-size:17px;text-align:center;background:#fdfed8;}
+        .bookIndex li a:hover{text-decoration:underline;}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="mingzhuTitle">
+        <h1>中国四大文学名著在线阅读，四大名著书籍</h1>
+    </div>
+    <ul class="bookIndex">
+        <li th:each="book:${list}">
+            <a th:href="@{'/book/catalog/' + ${book.bid}}" th:text="${book.bname}" target="_blank"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -18,6 +18,14 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
+    public EntityBean getBookCatalog(Long bid) {
+        EntityBean bean = new EntityBean(1);
+        bean.put("desc", storyMapping.getBookDescribe(bid));
+        bean.put("catalogs", storyMapping.getBookCatalog(bid));
+        return bean;
+    }
+
+    @Override
     public EntityBean getBookContent(Long sid) {
         return storyMapping.getBookContent(sid);
     }

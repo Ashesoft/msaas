@@ -15,13 +15,37 @@ public class StoryMapping {
     private JDBCExcutor jdbcExcutor;
 
     /**
+     * 获取书籍列表
+     * @return 书籍列表
+     */
+    public EntityBean[] getBookList(){
+        String sql = "select bid, bname from bookintroduction";
+        return jdbcExcutor.querys(sql);
+    }
+
+    /**
+     * 获取书籍详细简介
+     *
+     * @param bid 书籍序号
+     * @return 对应的书籍详细简介
+     */
+    public EntityBean getBookDescribe(Long bid){
+        String sql = "select * from bookintroduction where bid=:bid";
+        EntityBean bean = new EntityBean(1);
+        bean.put("bid", bid);
+        return jdbcExcutor.query(sql, bean);
+    }
+
+    /**
      * 获取故事目录
      *
      * @return 列表
      */
-    public EntityBean[] getBookList() {
-        String sql = "select sid, stitlename from storybook";
-        return jdbcExcutor.querys(sql);
+    public EntityBean[] getBookCatalog(Long bid) {
+        String sql = "select sid, stitlename from storycontent where sbid=:sbid";
+        EntityBean bean = new EntityBean(1);
+        bean.put("sbid", bid);
+        return jdbcExcutor.querys(sql, bean);
     }
 
     /**
@@ -31,7 +55,7 @@ public class StoryMapping {
      * @return 当前章回加与之相邻的上下两行的三行数据
      */
     public EntityBean getBookContent(Long sid) {
-        String sql = "select stitlename, scontent from storybook where sid=:sid";
+        String sql = "select stitlename, scontent from storycontent where sid=:sid";
         EntityBean bean = new EntityBean(1);
         bean.put("sid", sid);
         bean.put("curr_data", jdbcExcutor.query(sql, bean));
@@ -40,7 +64,7 @@ public class StoryMapping {
                 "when sign(sid-:sid)>0 then min(sid) " +
                 "else sid " +
                 "end as stitleid " +
-                "from storybook group by stype";
+                "from storycontent group by stype";
         EntityBean[] beans = jdbcExcutor.querys(sql, bean);
         bean.put("prev_sid", "没有了");
         bean.put("next_sid", "没有了");
@@ -63,7 +87,7 @@ public class StoryMapping {
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean insetBookInfo(EntityBean[] beans) {
-        String sql = "insert into storybook (sid, createtime, sbookname, stitlename, scontent) " +
+        String sql = "insert into storycontent (sid, createtime, sbookname, stitlename, scontent) " +
                 "values (:sid, :createtime, :sbookname, :stitlename, :scontent)";
         return jdbcExcutor.insertUpdateDeletes(sql, beans);
     }

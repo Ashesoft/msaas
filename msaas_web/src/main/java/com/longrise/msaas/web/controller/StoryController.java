@@ -21,7 +21,16 @@ public class StoryController {
         EntityBean[] beans = storyService.getBookList();
         ModelAndView mav = new ModelAndView();
         mav.addObject("list", beans);
-        mav.setViewName("/story/hlm/list.html");
+        mav.setViewName("/story/booklist.html");
+        return mav;
+    }
+
+    @GetMapping("/catalog/{bid}")
+    public ModelAndView getBookCatalog(@PathVariable("bid") Long bid){
+        EntityBean bean = storyService.getBookCatalog(bid);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("catalog", bean);
+        mav.setViewName("/story/bookcatalog.html");
         return mav;
     }
 
@@ -30,7 +39,7 @@ public class StoryController {
         EntityBean bean = storyService.getBookContent(sid);
         ModelAndView mav = new ModelAndView();
         mav.addObject("content", bean);
-        mav.setViewName("/story/hlm/hlm.html");
+        mav.setViewName("/story/bookcontent.html");
         return mav;
     }
 }
