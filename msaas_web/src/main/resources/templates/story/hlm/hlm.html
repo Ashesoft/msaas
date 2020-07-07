@@ -6,6 +6,8 @@
     <style>
         body,p {margin: 0;padding: 5px;}
         body {font-size: 16px;color: #222;}
+        .main {width: 1000px;margin: 0 auto;border: 1px solid #cbe4f5}
+        .title {color: #069;text-align: center;background: #deeffc;margin: 0;line-height: 3em;}
         p {margin-bottom: 12px;text-indent: 2em;line-height: 20px;}
         u {display: none;}
         a {text-decoration: none;color: #222;}
@@ -17,15 +19,17 @@
     </style>
 </head>
 <body>
-<h2 class="title" th:text="${content.curr_data.stitlename}">脂砚斋重评石头记</h2>
-<div>
-    <div class="content" th:utext="${content.curr_data.scontent}"></div>
-    <div class="mingzhuPage">
-        <a href="/book/list" class="returnIndex">【回目录】</a>
-        <span th:if="${content.prev_sid} eq '没有了'" th:text="'上一篇:' + ${content.prev_sid}" class="prevPage1">上一篇</span>
-        <a th:if="${content.prev_sid} ne '没有了'" th:href="@{'/book/content/'+${content.prev_sid}}" class="prevPage">上一篇</a>
-        <span th:if="${content.next_sid} eq '没有了'" th:text="'下一篇:' + ${content.next_sid}" class="nextPage1">下一篇</span>
-        <a th:if="${content.next_sid} ne '没有了'" th:href="@{'/book/content/'+${content.next_sid}}" class="nextPage">下一篇</a>
+<div class="main">
+    <h2 class="title" th:text="${content.curr_data.stitlename}">脂砚斋重评石头记</h2>
+    <div>
+        <div class="content" th:utext="${content.curr_data.scontent}"></div>
+        <div class="mingzhuPage">
+            <a href="/book/list" class="returnIndex">【回目录】</a>
+            <span th:if="${content.prev_sid} eq '没有了'" class="prevPage1">上一篇:没有了</span>
+            <a th:if="${content.prev_sid} ne '没有了'" th:href="@{'/book/content/'+${content.prev_sid}}" class="prevPage">上一篇</a>
+            <span th:if="${content.next_sid} eq '没有了'" class="nextPage1">下一篇:没有了</span>
+            <a th:if="${content.next_sid} ne '没有了'" th:href="@{'/book/content/'+${content.next_sid}}" class="nextPage">下一篇</a>
+        </div>
     </div>
 </div>
 </body>
