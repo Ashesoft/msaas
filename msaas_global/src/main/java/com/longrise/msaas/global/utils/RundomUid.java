@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+// 没有趋势递增效果, 不利于索引, 推荐使用 IdWorker 类
+@Deprecated
 public class RundomUid {
     private static AtomicInteger Guid = new AtomicInteger(100);
 

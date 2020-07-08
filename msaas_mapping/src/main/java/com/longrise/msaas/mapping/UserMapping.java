@@ -1,4 +1,4 @@
-package com.longrise.msaas.web;
+package com.longrise.msaas.mapping;
 
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.utils.RundomUid;

@@ -1,6 +1,7 @@
 package com.longrise.msaas.global.excutor;
 
 import com.longrise.msaas.global.action.ResultSetAction;
+import com.longrise.msaas.global.domain.APIException;
 import com.longrise.msaas.global.domain.EntityBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Component("jabcExcutor")
@@ -46,8 +53,7 @@ public class JDBCExcutor implements ApplicationContextAware {
      * @return 返回多条数据
      */
     public EntityBean[] querys(String sql){
-        List<EntityBean[]> list = jdbcTemplate.query(sql, resultSetAction::dataToBeans);
-        return list.isEmpty() ? null : list.get(0);
+        return jdbcTemplate.query(sql, resultSetAction::dataToBeans);
     }
     /**
      * 通过条件查询多条数据
@@ -55,8 +61,7 @@ public class JDBCExcutor implements ApplicationContextAware {
      * @return 返回多条数据
      */
     public EntityBean[] querys(String sql, EntityBean bean){
-        List<EntityBean[]> list = jdbcTemplate.query(sql, bean, resultSetAction::dataToBeans);
-        return list.isEmpty() ? null : list.get(0);
+        return jdbcTemplate.query(sql, bean, resultSetAction::dataToBeans);
     }
 
     /**
@@ -78,8 +83,28 @@ public class JDBCExcutor implements ApplicationContextAware {
         return jdbcTemplate.query(sql, bean, resultSetAction::dataToBean);
     }
 
-    public String getPriKey(String sql){
-        return jdbcTemplate.execute(sql, resultSetAction::dataToString);
+    /**
+     * 获取给定数据表的主键
+     * @param tableName 要获取主键的数据表名
+     * @return 主键
+     */
+    public String[] getPriKey(String tableName){
+        try{
+            DataSource dataSource = Objects.requireNonNull(jdbcTemplate.getJdbcTemplate().getDataSource());
+            DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
+            ResultSet priKeyInfo = metaData.getPrimaryKeys(null, "%", tableName);
+            priKeyInfo.getMetaData();
+            List<String> priKeys = new ArrayList<>(6);
+            while (priKeyInfo.next()){
+                priKeys.add(priKeyInfo.getString("COLUMN_NAME"));
+            }
+            if(priKeys.isEmpty()){
+                throw new APIException(5002, String.format("[%s]数据表没有主键", tableName));
+            }
+            return priKeys.toArray(String[]::new);
+        }catch (SQLException e){
+            throw new APIException(5002, e.getMessage());
+        }
     }
 
     /**
@@ -94,7 +119,7 @@ public class JDBCExcutor implements ApplicationContextAware {
     }
 
     /**
-     * 批量新增/修改/删除
+     * 新增/修改/删除 -- 批量
      * @param sql 执行语句
      * @param beans 批量数据
      * @return t|f

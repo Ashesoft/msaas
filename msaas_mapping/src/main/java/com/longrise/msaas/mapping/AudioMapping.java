@@ -1,4 +1,4 @@
-package com.longrise.msaas.web;
+package com.longrise.msaas.mapping;
 
 
 import com.longrise.msaas.global.domain.EntityBean;
@@ -13,9 +13,8 @@ public class AudioMapping{
     @Autowired
     private JDBCExcutor jdbcExcutor;
 
-    public String getPK(){
-        String sql="select * from audiolist where 1>1";
-        return jdbcExcutor.getPriKey(sql);
+    public String[] getPK(String tableName){
+        return jdbcExcutor.getPriKey(tableName);
     }
 
     /**
@@ -39,7 +38,7 @@ public class AudioMapping{
     /**
      * 批量向数据库新增数据
      * @param beans Map数组
-     * @return
+     * @return t || f
      */
     @Transactional(rollbackFor=Exception.class)
     public boolean insetAudioInfo(EntityBean[] beans){

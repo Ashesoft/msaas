@@ -2,7 +2,7 @@ package com.longrise.msaas.service.impl;
 
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.utils.BindLogClass;
-import com.longrise.msaas.web.UserMapping;
+import com.longrise.msaas.mapping.UserMapping;
 import com.longrise.msaas.service.UserService;
 import org.springframework.stereotype.Service;
 

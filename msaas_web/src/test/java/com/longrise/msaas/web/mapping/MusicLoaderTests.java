@@ -3,7 +3,7 @@ package com.longrise.msaas.web.mapping;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.utils.IdWorker;
-import com.longrise.msaas.web.AudioMapping;
+import com.longrise.msaas.mapping.AudioMapping;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;

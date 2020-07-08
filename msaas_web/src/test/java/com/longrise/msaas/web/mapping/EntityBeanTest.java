@@ -2,7 +2,7 @@ package com.longrise.msaas.web.mapping;
 
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.excutor.JDBCExcutor;
-import com.longrise.msaas.web.AudioMapping;
+import com.longrise.msaas.mapping.AudioMapping;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,7 +23,8 @@ public class EntityBeanTest {
 
     @Test
     public void t4(){
-        System.out.println(audioMapping.getPK());
+        String[] pks = audioMapping.getPK("users");
+        System.out.println(Arrays.toString(pks));
     }
 
     @Test

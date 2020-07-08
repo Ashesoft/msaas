@@ -69,11 +69,11 @@ public class StoryMapping {
         bean.put("prev_sid", "没有了");
         bean.put("next_sid", "没有了");
         Arrays.asList(beans).forEach(b -> {
-            String stype = String.valueOf(b.get("stype"));
-            if ("-1".equals(stype)) {
-                bean.put("prev_sid", b.get("stitleid"));
-            } else if ("1".equals(stype)) {
-                bean.put("next_sid", b.get("stitleid"));
+            int stype = b.getInt("stype");
+            if (-1 == stype) {
+                bean.put("prev_sid", b.getLong("stitleid"));
+            } else if (1 == stype) {
+                bean.put("next_sid", b.getLong("stitleid"));
             }
         });
         return bean;
