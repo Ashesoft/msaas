@@ -26,15 +26,14 @@ public class ResultSetAction{
     public EntityBean[] dataToBeans(ResultSet rs) throws SQLException {
         List<EntityBean> beans = new ArrayList<>(8);
         ResultSetMetaData md = rs.getMetaData();
-        do{
+        while(rs.next()){
             EntityBean bean = new EntityBean();
             for (int j = 1, columnCount = md.getColumnCount(); j <= columnCount; j++) {
                 bean.put(md.getColumnName(j), rs.getObject(j));
             }
             beans.add(bean);
-        }while(rs.next());
-        EntityBean[] entityBean = new EntityBean[beans.size()];
-        return beans.toArray(entityBean);
+        }
+        return beans.toArray(EntityBean[]::new);
     }
 
     /**
