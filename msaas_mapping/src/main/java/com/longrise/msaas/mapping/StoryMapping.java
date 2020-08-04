@@ -59,11 +59,17 @@ public class StoryMapping {
         EntityBean bean = new EntityBean(1);
         bean.put("sid", sid);
         bean.put("curr_data", jdbcExcutor.query(sql, bean));
-        sql = "select sign(sid-:sid) as stype, case " +
+
+        // 注意: 使用 group by 语法后, 返回的结果不为一时会报'ONLY_FULL_GROUP_BY'的错误
+        // 解决: 1. 禁止返回结果唯一性的检查(a. 使用any_value(), b. 在 mysql 的配置文件中指定 sql_mode)
+        //      2. 重新检查sql语法逻辑
+        sql = "select sign(sid-:sid) as stype, " +
+                "any_value(" +
+                "case " +
                 "when sign(sid-:sid)<0 then max(sid) " +
                 "when sign(sid-:sid)>0 then min(sid) " +
-                "else sid " +
-                "end as stitleid " +
+                "else sid end" +
+                ") as stitleid " +
                 "from storycontent group by stype";
         EntityBean[] beans = jdbcExcutor.querys(sql, bean);
         bean.put("prev_sid", "没有了");
