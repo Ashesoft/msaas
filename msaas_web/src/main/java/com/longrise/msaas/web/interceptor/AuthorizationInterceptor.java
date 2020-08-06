@@ -12,9 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
+/**
+ * 自定义的拦截机制--用户鉴权
+ */
 public class AuthorizationInterceptor implements HandlerInterceptor {
-    @Autowired
     private JsonWebTokenConfig jsonWebTokenConfig;
+
+    public AuthorizationInterceptor(JsonWebTokenConfig jsonWebTokenConfig) {
+        this.jsonWebTokenConfig = jsonWebTokenConfig;
+    }
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,7 +44,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 if(token == null){
                     throw new APIException(5000, "没有token, 请登录");
                 }
-                if(jsonWebTokenConfig.isExpired(token)){
+                if(this.jsonWebTokenConfig.isExpired(token)){
                     throw new APIException(5000, "授权已过期, 请重新登录");
                 }
             }
