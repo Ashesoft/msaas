@@ -1,6 +1,9 @@
 package com.longrise.msaas.web.configuration;
 
 import com.longrise.msaas.web.interceptor.AuthorizationInterceptor;
+import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +21,9 @@ public class LocalWebMvcConfig implements WebMvcConfigurer {
     private String audioRedirect;
 
     @Autowired
-    private Environment env;
+    private Environment env; // springboot 环境
+    @Autowired
+    private JsonWebTokenConfig jsonWebTokenConfig; // jwt 配置类
 
     /**
      * 将服务器请求资源的地址映射到本地路径
@@ -31,16 +36,32 @@ public class LocalWebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 添加拦截机制
+     * 添加自定义的拦截机制
      * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authorizationInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new AuthorizationInterceptor(jsonWebTokenConfig)).addPathPatterns("/**");
     }
 
-    @Bean
-    public AuthorizationInterceptor authorizationInterceptor(){
-        return new AuthorizationInterceptor();
+    // 生成加密/解密配置文件明文的bean
+    @Bean( name = "codeSheepEncryptorBean" )
+    public StringEncryptor codesheepStringEncryptor() {
+
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        // 通过使用jvm环境的方式隐蔽jasypr的加密密钥
+        config.setPassword(System.getProperty("jasypt.encryptor.password"));
+        config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
+        config.setStringOutputType("base64");
+        encryptor.setConfig(config);
+
+        return encryptor;
     }
 }
