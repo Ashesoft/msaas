@@ -27,11 +27,7 @@ spring:
       auto-commit: true
   # 使用开发环境
   profiles:
-    active: prod
-  output:
-    ansi:
-      # 控制日志在控制台是否为彩色显示, always[总是] detect[尝试] never[从不]
-      enabled: always
+    active: dev
 
 #配置服务端口为8181
 server:
@@ -78,6 +74,10 @@ spring:
     - dev
   thymeleaf:
     cache: false
+  output:
+    ansi:
+      # 控制日志在控制台是否为彩色显示, always[总是] detect[尝试--默认] never[从不]
+      enabled: always
 server:
   port: 8082
 
