@@ -984,8 +984,8 @@
 
         // 设置请求头
         setRQHeader : {
-            value : function (key, value){
-                HGData.ajaxSetting.header[key] = token;
+            value : function (k, v){
+                HGData.ajaxSetting.header[k] = v;
             }
         },
 

@@ -50,6 +50,7 @@ self.fn.mobile_login = function (){ // ntp-login-mobile
     current.on("click", function(){
         var wgt_countrycode_item = H5("#wgt-countrycode-item", self.temp_box);
         bool && H5.ajax("post", null, "/queryPhoneAreaCode", function(res){
+            uloptions.clearChildren();
             JSON.parse(res).data.forEach((o, i)=>{
                 var newElem = wgt_countrycode_item.cloneNode(!0),
                 li = H5("li", newElem),
@@ -62,10 +63,9 @@ self.fn.mobile_login = function (){ // ntp-login-mobile
                     j_code.txt(H5(".rt", li).txt());
                     uloptions.addClass("f-hide");
                 });
-                uloptions.clearChildren();
                 uloptions.copyChildren(newElem);
-                bool = !1;
             });
+            bool = !1;
         });
         uloptions.rmvClass("f-hide");
     });
