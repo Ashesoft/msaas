@@ -25,10 +25,17 @@ spring:
       maximum-pool-size: 15
       # 自动提交从池中返回的连接(默认为:true)
       auto-commit: true
+  # 使用开发环境
+  profiles:
+    active: prod
+  output:
+    ansi:
+      # 控制日志在控制台是否为彩色显示, always[总是] detect[尝试] never[从不]
+      enabled: always
 
-#配置服务端口为8181->
+#配置服务端口为8181
 server:
-  port: 8888
+  port: 8181
 
 #自定义资源映射
 address:
@@ -40,6 +47,10 @@ address:
     redirect: file:D:/videos/
 
 jasypt:
+#  resolver:
+#    bean:
+#  detector:
+#    bean:
   encryptor:
     bean: codeSheepEncryptorBean
     property:
@@ -59,3 +70,21 @@ jwt:
 # 采用了bean的方式配置会覆盖掉默认的方式
 # WebMvcConfigurer 可以额外的进行自定义配置, 并且不影响springboot的自动装配
 # WebMvcConfigurationSupport 也可以自定义配置, 但是会影响到springboot的自动装配
+
+---
+# 开发环境
+spring:
+  profiles:
+    - dev
+  thymeleaf:
+    cache: false
+server:
+  port: 8082
+
+---
+# 生产环境
+spring:
+  profiles:
+    - prod
+server:
+  port: 8081
