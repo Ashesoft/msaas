@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Stream;
 
 //@RestController
 @Controller
@@ -29,12 +32,9 @@ public class NotLoginController {
 
     @ResponseBody
     @PostMapping("/ulogin")
-    public EntityBean index(String uphone, String upassword) {
-        EntityBean bean = new EntityBean(1);
-        bean.put("uphone", URLEncoder.encode(uphone, StandardCharsets.UTF_8));
-        bean.put("upassword", upassword);
-        EntityBean bean1 = notLoginService.isOwnerUserByPhone(bean);
-        String token = jsonWebTokenConfig.generateToken((String) bean1.get("uphone"));
+    public EntityBean index(@RequestParam Map<String, Object> bean) {
+        EntityBean bean1 = notLoginService.isOwnerUserByPhone(Stream.of(bean).collect(EntityBean::new, EntityBean::putAll, EntityBean::putAll));
+        String token = jsonWebTokenConfig.generateToken(bean1.getString("uphone"));
         bean1.put("token", token);
         return bean1;
     }

@@ -12,7 +12,8 @@ spring:
   # 数据库配置
   datasource:
     # driver-class-name: com.mysql.jdbc.Driver # 被弃用了
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    # driver-class-name: com.mysql.cj.jdbc.Driver # 可省略
+    # 通过 org.springframework.boot.jdbc 包下的枚举类 DatabaseDriver.java 中的 fromJdbcUrl(String url) 方法, 根据数据库 url 链接地址获取驱动
     url: jdbc:mysql://127.0.0.1:3306/springboot?charset=utf8mb4&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     # 使用jasypt加密后的
     username: CodeSheep(k8xGp81xIDrTmmShqpkXZg5+ZlH8e4MN8TvMz6I8NvlWoe2SMjmchxHpMeNzXoE6)
@@ -28,6 +29,7 @@ spring:
   # 使用开发环境
   profiles:
     active: dev
+#    active: prod
 
 #配置服务端口为8181
 server:
@@ -80,6 +82,23 @@ spring:
       enabled: always
 server:
   port: 8082
+# 开启控制台的调式级别日志记录, 可以输出 springboot 原生 JDBC 执行的 SQL 语句, 但会有大量的自动装配日志记录
+# debug: true
+# 将 org.springframework.boot.autoconfigure 包下所有的日志级别调值 ERROR 级别, 用来屏蔽自动装配的日志记录
+logging:
+  # 指定某个类的日志等级, 以输出目标日志, 如执行的 sql 语句
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+#      springframework:
+#        boot:
+#          autoconfigure: ERROR
 
 ---
 # 生产环境

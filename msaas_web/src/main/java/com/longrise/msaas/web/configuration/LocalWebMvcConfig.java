@@ -6,12 +6,16 @@ import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 @Configuration
 public class LocalWebMvcConfig implements WebMvcConfigurer {
@@ -63,5 +67,16 @@ public class LocalWebMvcConfig implements WebMvcConfigurer {
         encryptor.setConfig(config);
 
         return encryptor;
+    }
+
+    // 自定义缓存key
+    @Bean("myKeyGenerator")
+    public KeyGenerator keyGenerator(){
+        return new KeyGenerator(){
+            @Override
+            public Object generate(Object target, Method method, Object... params) {
+                return method.getName() + Arrays.toString(params);
+            }
+        };
     }
 }
