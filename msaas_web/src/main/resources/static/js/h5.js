@@ -538,7 +538,7 @@
                     opacity: .6
                 }
 
-                25 {
+                25% {
                     opacity: .4
                 }
 
@@ -560,7 +560,7 @@
                     opacity: .6
                 }
 
-                25 {
+                25% {
                     opacity: .4
                 }
 
@@ -716,7 +716,7 @@
 
             @media only screen and (max-width: 736px) {
                 .toast-container {
-                    width:90%;
+                    width:80%;
                     margin: 0 auto;
                     display: block;
                     right: 0;

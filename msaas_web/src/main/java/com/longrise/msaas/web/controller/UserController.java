@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @LoginToken
-    @GetMapping("/show.html")
+    @GetMapping("/testmsg")
     public String show() {
         return "这是一个测试信息";
     }
