@@ -10,11 +10,11 @@ import javax.annotation.Resource;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Resource
-    private UserMapping userMapping;
+  @Resource
+  private UserMapping userMapping;
 
-    public EntityBean[] getAllUserInfo(Integer count) {
-        BindLogClass.put(this.getClass().getName());
-        return userMapping.getAllUserInfo(count);
-    }
+  public EntityBean[] getAllUserInfo(Integer count) {
+    BindLogClass.put(this.getClass().getName());
+    return userMapping.getAllUserInfo(count);
+  }
 }

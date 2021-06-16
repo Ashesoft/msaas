@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AudioServiceImpl implements AudioService {
-    @Autowired
-    private AudioMapping audioMapping;
+  @Autowired
+  private AudioMapping audioMapping;
 
-    public EntityBean[] getAllAudio() {
-        return audioMapping.getAllAudio();
-    }
+  public EntityBean[] getAllAudio() {
+    return audioMapping.getAllAudio();
+  }
 }

@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotLoginServiceImpl implements NotLoginService {
 
-    @Autowired
-    private NotLoginMapping notLoginMapping;
+  @Autowired
+  private NotLoginMapping notLoginMapping;
 
-    @Override
-    public EntityBean[] queryPhoneAreaCode() {
-        return notLoginMapping.queryPhoneAreaCode();
-    }
+  @Override
+  public EntityBean[] queryPhoneAreaCode() {
+    return notLoginMapping.queryPhoneAreaCode();
+  }
 
-    @Override
-    public EntityBean isOwnerUserByPhone(EntityBean bean) {
-        return notLoginMapping.isOwnerUserByPhone(bean);
-    }
+  @Override
+  public EntityBean isOwnerUserByPhone(EntityBean bean) {
+    return notLoginMapping.isOwnerUserByPhone(bean);
+  }
 }

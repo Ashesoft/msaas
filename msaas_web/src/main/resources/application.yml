@@ -3,7 +3,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-    mode: HTML5
+    mode: HTML
   application:
     name: service=msaas
   jackson:
@@ -69,6 +69,15 @@ jwt:
 # WebMvcConfigurer 可以额外的进行自定义配置, 并且不影响springboot的自动装配
 # WebMvcConfigurationSupport 也可以自定义配置, 但是会影响到springboot的自动装配
 
+
+# 微信jssdk使用微信能力的基本配置
+wx:
+  config:
+    appid: wxd73b26b180449e66
+    appsecret: 42dfc3a4a29dfc5cb4584a655fde8ccd
+    turl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
+    noncestr: longrise2020
+
 ---
 # 开发环境
 spring:
@@ -81,7 +90,7 @@ spring:
       # 控制日志在控制台是否为彩色显示, always[总是] detect[尝试--默认] never[从不]
       enabled: always
 server:
-  port: 8082
+  port: 8080
 # 开启控制台的调式级别日志记录, 可以输出 springboot 原生 JDBC 执行的 SQL 语句, 但会有大量的自动装配日志记录
 # debug: true
 # 将 org.springframework.boot.autoconfigure 包下所有的日志级别调值 ERROR 级别, 用来屏蔽自动装配的日志记录
