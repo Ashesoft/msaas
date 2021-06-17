@@ -9,6 +9,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 @Service
 public class WeChatServiceImpl implements WeChatService {
   @Value("${wx.config.appid}")
@@ -23,16 +25,18 @@ public class WeChatServiceImpl implements WeChatService {
   private RestTemplate restTemplate;
 
   @Autowired
-  public WeChatServiceImpl(RestTemplate restTemplate) {
+  public WeChatServiceImpl( @NonNull RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
 
   @Override
   public EntityBean getAccessToken() {
     EntityBean bean = restTemplate.getForObject(String.format(url, appid, appsecret), EntityBean.class);
-    bean.put("appid", appid);
-    bean.put("timestamp", SignatureTool.getCurrentTimeSeconds());
-    bean.put("noncestr", noncestr);
+    if (Objects.nonNull(bean)) {
+      bean.put("appid", appid);
+      bean.put("timestamp", SignatureTool.getCurrentTimeSeconds());
+      bean.put("noncestr", noncestr);
+    }
     return bean;
   }
 
