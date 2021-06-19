@@ -75,9 +75,8 @@ wx:
   config:
     appid: wxd73b26b180449e66
     appsecret: 42dfc3a4a29dfc5cb4584a655fde8ccd
-    turl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
-    noncestr: longrise2020
-
+    token_url: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
+    ticket_url: https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%s
 ---
 # 开发环境
 spring:
@@ -90,7 +89,7 @@ spring:
       # 控制日志在控制台是否为彩色显示, always[总是] detect[尝试--默认] never[从不]
       enabled: always
 server:
-  port: 8080
+  port: 8082
 # 开启控制台的调式级别日志记录, 可以输出 springboot 原生 JDBC 执行的 SQL 语句, 但会有大量的自动装配日志记录
 # debug: true
 # 将 org.springframework.boot.autoconfigure 包下所有的日志级别调值 ERROR 级别, 用来屏蔽自动装配的日志记录
