@@ -1,6 +1,5 @@
 package com.longrise.msaas.service.impl;
 
-import com.longrise.msaas.global.domain.APIException;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.utils.SignatureTool;
 import com.longrise.msaas.service.WeChatService;
@@ -23,34 +22,34 @@ public class WeChatServiceImpl implements WeChatService {
   @Value("${wx.config.ticket_url}")
   private String ticket_url;
 
-  private RestTemplate restTemplate;
+  private final RestTemplate restTemplate;
 
   private static EntityBean storage = new EntityBean();
 
   @Autowired
-  public WeChatServiceImpl( @NonNull RestTemplate restTemplate) {
+  public WeChatServiceImpl(@NonNull RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
 
   @Override
   public EntityBean getAccessToken(String url) {
-    if(storage.isEmpty()){
+    if (storage.isEmpty()) {
       init(url);
-    }else{
+    } else {
       long cur_timestamp = SignatureTool.create_timestamp(),
-      val = cur_timestamp - storage.getLong("timestamp");
-      if(val>=7200){
+          val = cur_timestamp - storage.getLong("timestamp");
+      if (val >= 7200) {
         init(url);
       }
     }
-    return  storage;
+    return storage;
   }
 
   private void init(String url) {
     getToken();
     getTicket();
-    if(!storage.isEmpty()){
-      EntityBean sign_bean = SignatureTool.sign(storage.getString("ticket"), url);
+    if (!storage.isEmpty()) {
+      EntityBean sign_bean = SignatureTool.sign(storage.getString("jsapi_ticket"), url);
       storage.put("expires_in", 7200);
       storage.putAll(sign_bean);
     }
@@ -59,12 +58,12 @@ public class WeChatServiceImpl implements WeChatService {
   /**
    * 获取访问token
    */
-  private void getToken(){
+  private void getToken() {
     EntityBean access_token_bean = restTemplate.getForObject(String.format(token_url, appid, appsecret), EntityBean.class);
-    if(Objects.nonNull(access_token_bean) && access_token_bean.containsKey("access_token")){
+    if (Objects.nonNull(access_token_bean) && access_token_bean.containsKey("access_token")) {
       storage.put("access_token", access_token_bean.getString("access_token"));
       storage.put("appId", appid);
-    }else{
+    } else {
       storage = new EntityBean();
     }
   }
@@ -72,12 +71,12 @@ public class WeChatServiceImpl implements WeChatService {
   /**
    * 根据access_token获取票根
    */
-  private void getTicket(){
-    if(storage.containsKey("access_token")){
+  private void getTicket() {
+    if (storage.containsKey("access_token")) {
       String access_token = storage.getString("access_token");
       EntityBean ticket_bean = restTemplate.getForObject(String.format(ticket_url, access_token), EntityBean.class);
-      if(Objects.nonNull(ticket_bean) && ticket_bean.containsKey("ticket")){
-        storage.put("ticket", ticket_bean.getString("ticket"));
+      if (Objects.nonNull(ticket_bean) && ticket_bean.containsKey("ticket")) {
+        storage.put("jsapi_ticket", ticket_bean.getString("ticket"));
         return;
       }
     }
