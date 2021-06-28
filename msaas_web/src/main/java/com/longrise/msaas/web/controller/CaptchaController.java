@@ -19,8 +19,8 @@ public class CaptchaController {
 
   @PostMapping("/checkcode")
   @ResponseBody
-  public boolean checkCode(HttpServletRequest request, @RequestBody EntityBean bean){
-    if(Objects.isNull(bean) || !bean.containsKey("valicode")){
+  public boolean checkCode(HttpServletRequest request, @RequestBody EntityBean bean) {
+    if (Objects.isNull(bean) || !bean.containsKey("valicode")) {
       return false;
     }
     return CaptchaUtil.ver(bean.getString("valicode"), request);

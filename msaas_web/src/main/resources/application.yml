@@ -73,10 +73,12 @@ jwt:
 # 微信jssdk使用微信能力的基本配置
 wx:
   config:
-    appid: wxd73b26b180449e66
-    appsecret: 42dfc3a4a29dfc5cb4584a655fde8ccd
+    appid: wxc87009e90041c1b4
+    appsecret: 5cc358d6031d0da1a87fbe4483563b30
     token_url: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
     ticket_url: https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%s
+    user_token_url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code
+    user_url: https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN
 ---
 # 开发环境
 spring:

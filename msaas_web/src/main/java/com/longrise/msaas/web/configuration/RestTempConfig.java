@@ -9,18 +9,16 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 @Configuration
-public class RestTemplateConfig {
-
+public class RestTempConfig {
   private RestTemplateBuilder restTemplateBuilder;
 
   @Autowired
-  public RestTemplateConfig(RestTemplateBuilder restTemplateBuilder){
+  public RestTempConfig(RestTemplateBuilder restTemplateBuilder){
     this.restTemplateBuilder = restTemplateBuilder;
   }
 
   @Bean
   public RestTemplate restTemplate(){
-    return restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(20)).
-      setReadTimeout(Duration.ofSeconds(20)).build();
+    return restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(20)).setReadTimeout(Duration.ofSeconds(20)).build();
   }
 }

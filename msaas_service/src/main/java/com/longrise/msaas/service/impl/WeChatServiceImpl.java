@@ -1,5 +1,7 @@
 package com.longrise.msaas.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.longrise.msaas.global.domain.APIException;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.utils.SignatureTool;
@@ -10,6 +12,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -22,10 +25,15 @@ public class WeChatServiceImpl implements WeChatService {
   private String token_url;
   @Value("${wx.config.ticket_url}")
   private String ticket_url;
+  @Value("${wx.config.user_token_url}")
+  private String user_token_url;
+  @Value("${wx.config.user_url}")
+  private String user_url;
 
   private RestTemplate restTemplate;
 
   private static EntityBean storage = new EntityBean();
+  private static EntityBean userstorage = new EntityBean();
 
   @Autowired
   public WeChatServiceImpl( @NonNull RestTemplate restTemplate) {
@@ -36,14 +44,50 @@ public class WeChatServiceImpl implements WeChatService {
   public EntityBean getAccessToken(String url) {
     if(storage.isEmpty()){
       init(url);
-    }else{
-      long cur_timestamp = SignatureTool.create_timestamp(),
-      val = cur_timestamp - storage.getLong("timestamp");
-      if(val>=7200){
-        init(url);
-      }
+    }else if(isExpiresIn(storage)){
+      init(url);
     }
     return  storage;
+  }
+
+  @Override
+  public EntityBean getWxUserInfo(String code) {
+    if(userstorage.isEmpty()){
+      getUserToken(code);
+    }else if (isExpiresIn(userstorage)){
+      getUserToken(code);
+    }
+    if(!userstorage.isEmpty() && userstorage.containsKey("access_token") && userstorage.containsKey("openid")){
+      String user_info = restTemplate.getForObject(String.format(user_url, userstorage.getString("access_token"), userstorage.getString("openid")), String.class);
+      try {
+        return new ObjectMapper().readValue(user_info, EntityBean.class);
+      } catch (JsonProcessingException e) {
+        throw new APIException(5001, "user_token 反序列化失败");
+      }
+    }
+    return new EntityBean();
+  }
+
+  @Override
+  public String getAppid() {
+    return appid;
+  }
+
+  private boolean isExpiresIn(EntityBean bean){
+    long cur_timestamp = SignatureTool.create_timestamp(),val = bean.getLong("timestamp");
+    return (cur_timestamp-val)>=7200;
+  }
+
+  private void getUserToken(String code){
+    String user_token = restTemplate.getForObject(String.format(user_token_url, appid, appsecret, code), String.class);
+    EntityBean user_bean_token;
+    try {
+      user_bean_token = new ObjectMapper().readValue(user_token, EntityBean.class);
+    } catch (JsonProcessingException e) {
+       throw new APIException(5001, "user_token 反序列化失败");
+    }
+    userstorage.putAll(user_bean_token);
+    userstorage.put("timestamp", SignatureTool.create_timestamp());
   }
 
   private void init(String url) {

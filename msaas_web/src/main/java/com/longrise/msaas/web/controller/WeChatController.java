@@ -15,12 +15,22 @@ public class WeChatController {
   private WeChatService weChatService;
 
   @Autowired
-  private WeChatController(RestTemplate restTemplate, WeChatService weChatService){
+  private WeChatController(RestTemplate restTemplate, WeChatService weChatService) {
     this.weChatService = weChatService;
   }
 
   @GetMapping("/signature")
   public EntityBean signature(@RequestParam String url) {
     return weChatService.getAccessToken(url);
+  }
+
+  @GetMapping("/getWxUserInfo")
+  public EntityBean getWxUserInfo(@RequestParam String code) {
+    return weChatService.getWxUserInfo(code);
+  }
+
+  @GetMapping("/getAppId")
+  public String getAppId(){
+    return weChatService.getAppid();
   }
 }

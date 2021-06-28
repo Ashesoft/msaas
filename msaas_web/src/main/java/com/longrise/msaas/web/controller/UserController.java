@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    @PassToken
-    @GetMapping("/getusers/{count}")
-    public EntityBean[] getAllUserInfo(@PathVariable("count") Integer count){
-        return userService.getAllUserInfo(count);
-    }
+  @PassToken
+  @GetMapping("/getusers/{count}")
+  public EntityBean[] getAllUserInfo(@PathVariable("count") Integer count) {
+    return userService.getAllUserInfo(count);
+  }
 
-    @LoginToken
-    @GetMapping("/testmsg")
-    public String show() {
-        return "这是一个测试信息";
-    }
+  @LoginToken
+  @GetMapping("/testmsg")
+  public String show() {
+    return "这是一个测试信息";
+  }
 }

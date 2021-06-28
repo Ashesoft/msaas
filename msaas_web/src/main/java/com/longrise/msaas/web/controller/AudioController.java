@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AudioController {
 
-    @Autowired
-    private AudioService audioService;
+  @Autowired
+  private AudioService audioService;
 
-    @GetMapping("/getAudios")
-    public EntityBean[] getAudios(){
-        return audioService.getAllAudio();
-    }
+  @GetMapping("/getAudios")
+  public EntityBean[] getAudios() {
+    return audioService.getAllAudio();
+  }
 }

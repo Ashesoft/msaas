@@ -30,7 +30,8 @@ public class NotLoginController {
   @ResponseBody
   @PostMapping("/ulogin")
   public EntityBean index(@RequestParam Map<String, Object> bean) {
-    EntityBean bean1 = notLoginService.isOwnerUserByPhone(Stream.of(bean).collect(EntityBean::new, EntityBean::putAll, EntityBean::putAll));
+    EntityBean bean1 = notLoginService.isOwnerUserByPhone(Stream.of(bean).collect(EntityBean::new, EntityBean::putAll
+      , EntityBean::putAll));
     String token = jsonWebTokenConfig.generateToken(bean1.getString("uphone"));
     bean1.put("token", token);
     return bean1;
@@ -41,7 +42,7 @@ public class NotLoginController {
   @PostMapping("/login")
   public EntityBean login(String usr, String pass, String valicode, HttpServletRequest request) {
     EntityBean bean = new EntityBean();
-    if(!CaptchaUtil.ver(valicode, request)){
+    if (!CaptchaUtil.ver(valicode, request)) {
       CaptchaUtil.clear(request);
       bean.put("msg", "验证码不正确");
       return bean;
