@@ -26,6 +26,7 @@ public class WeChatServiceImpl implements WeChatService {
   private RestTemplate restTemplate;
 
   private static EntityBean storage = new EntityBean();
+  private static EntityBean userstorage = new EntityBean();
 
   @Autowired
   public WeChatServiceImpl( @NonNull RestTemplate restTemplate) {
@@ -36,14 +37,30 @@ public class WeChatServiceImpl implements WeChatService {
   public EntityBean getAccessToken(String url) {
     if(storage.isEmpty()){
       init(url);
-    }else{
-      long cur_timestamp = SignatureTool.create_timestamp(),
-      val = cur_timestamp - storage.getLong("timestamp");
-      if(val>=7200){
-        init(url);
-      }
+    }else if(!isExpirseIn(storage)){
+      init(url);
     }
     return  storage;
+  }
+
+  @Override
+  public EntityBean getWxUserInfo(String code) {
+    return null;
+  }
+
+  private  void getUserToken(){
+
+  }
+
+  @Override
+  public String getAppid() {
+    return null;
+  }
+
+  private boolean isExpirseIn(EntityBean bean){
+    long cur_timestamp = SignatureTool.create_timestamp(),
+      val = cur_timestamp - bean.getLong("timestamp");
+    return val>=7200;
   }
 
   private void init(String url) {
