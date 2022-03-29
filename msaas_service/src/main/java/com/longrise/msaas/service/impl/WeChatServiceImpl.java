@@ -20,12 +20,20 @@ public class WeChatServiceImpl implements WeChatService {
   private String appid;
   @Value("${wx.config.appsecret}")
   private String appsecret;
+
+  // 通过它获取公众号的全局唯一接口调用凭据, 公众号调用个接口时都需要使用他 `access_token`, 有效期为2个小时, 需定时刷新;
   @Value("${wx.config.token_url}")
   private String token_url;
+
+  //
   @Value("${wx.config.ticket_url}")
   private String ticket_url;
+
+
   @Value("${wx.config.user_token_url}")
   private String user_token_url;
+
+  // 网页授权获取用户信息
   @Value("${wx.config.user_url}")
   private String user_url;
 
@@ -52,11 +60,7 @@ public class WeChatServiceImpl implements WeChatService {
 
   @Override
   public EntityBean getWxUserInfo(String code) {
-    if (userstorage.isEmpty()) {
       getUserToken(code);
-    } else if (isExpirseIn(userstorage)) {
-      getUserToken(code);
-    }
     if (userstorage.containsKey("access_token") && userstorage.containsKey("openid")) {
       String user = restTemplate.getForObject(String.format(user_url, userstorage.getString("access_token"), userstorage.getString("openid")), String.class);
       try {
@@ -100,7 +104,7 @@ public class WeChatServiceImpl implements WeChatService {
   }
 
   /**
-   * 获取访问token
+   * 获取 access_token
    */
   private void getToken() {
     EntityBean access_token_bean = restTemplate.getForObject(String.format(token_url, appid, appsecret), EntityBean.class);

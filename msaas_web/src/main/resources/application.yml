@@ -75,9 +75,13 @@ wx:
   config:
     appid: wxc87009e90041c1b4
     appsecret: 5cc358d6031d0da1a87fbe4483563b30
+#   获取assess_token 几乎所有公众号api都要用它
     token_url: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
+#   获取
     ticket_url: https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%s
     user_token_url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code
+#    user_url: https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN
+#    网页授权获取用户信息
     user_url: https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN
 ---
 # 开发环境
