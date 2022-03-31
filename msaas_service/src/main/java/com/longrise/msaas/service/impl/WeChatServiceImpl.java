@@ -8,7 +8,6 @@ import com.longrise.msaas.global.domain.WeChatTokenCache;
 import com.longrise.msaas.global.utils.SignatureTool;
 import com.longrise.msaas.mapping.WeChatMapping;
 import com.longrise.msaas.service.WeChatService;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
@@ -16,11 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Base64;
 import java.util.Objects;
 
 @Service
