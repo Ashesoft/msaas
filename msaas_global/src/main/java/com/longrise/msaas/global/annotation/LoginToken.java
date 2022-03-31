@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE}) // 注解的作用目标
 @Retention(RetentionPolicy.RUNTIME) // 注解的保留位置
 public @interface LoginToken {
-    boolean required() default true;
+  boolean required() default true;
 }

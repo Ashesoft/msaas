@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title th:text="${catalog.desc.btitle}">脂砚斋重评石头记甲戌本</title>
     <style>
         .main{width:1000px;margin:0 auto;border:1px solid #cbe4f5}
@@ -15,6 +15,9 @@
         .bookDes .ablum{width:105px;text-align:center;float:left;margin-right:10px;border:1px solid #ccc;padding:1px;overflow:hidden;background:#fff}
         .bookDes .text{line-height:150%;text-indent:2em;font-size:14px;line-height:28px}
         .bookDes .text p{margin-bottom:10px}.red{color:#f00}p{line-height:150%}
+
+
+
     </style>
 </head>
 <body>
@@ -31,7 +34,8 @@
     </div>
     <ul class="bookList">
         <li th:each="book:${catalog.catalogs}">
-            <a href="javascript:void(0);" th:href="@{'/book/content/' + ${book.sid}}" target="_blank" th:text="${book.stitlename}"></a>
+            <a href="javascript:void(0);" th:href="@{'/book/content/' + ${book.sid}}" target="_blank"
+               th:text="${book.stitlename}"></a>
         </li>
     </ul>
 </div>

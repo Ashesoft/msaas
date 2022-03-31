@@ -1,10 +1,13 @@
 package com.longrise.msaas.global.domain;
 
-import java.util.concurrent.*;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class WeChatTokenCache {
-  private  EntityBean tokens = new EntityBean();
-  private  DelayQueue<WeChatToken> caches = new DelayQueue<>();
+  private EntityBean tokens = new EntityBean();
+  private DelayQueue<WeChatToken> caches = new DelayQueue<>();
 
   public WeChatTokenCache() {
     Executors.newSingleThreadExecutor().execute(() -> {
@@ -18,24 +21,25 @@ public class WeChatTokenCache {
       }
     });
   }
-  public String getWeChatToken(String tokenKeyType){
-    if(this.tokens.containsKey(tokenKeyType)){
+
+  public String getWeChatToken(String tokenKeyType) {
+    if (this.tokens.containsKey(tokenKeyType)) {
       return this.tokens.getString(tokenKeyType);
     }
     return null;
   }
 
-  public void putWechatToken (int expire, String tokenKeyType, String tokenVal){
+  public void putWechatToken(int expire, String tokenKeyType, String tokenVal) {
     this.tokens.put(tokenKeyType, tokenVal);
     this.caches.add(WeChatToken.getInstance(expire, tokenKeyType));
   }
 
 
-  private static class WeChatToken implements Delayed{
+  private static class WeChatToken implements Delayed {
     private long expire;
     private String tokenKeyType;
 
-    private WeChatToken(long expire , String tokenKeyType){
+    private WeChatToken(long expire, String tokenKeyType) {
       this.tokenKeyType = tokenKeyType;
       this.expire = expire;
     }

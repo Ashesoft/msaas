@@ -19,7 +19,7 @@ public class WeChatController {
 
 
   @GetMapping("/signature")
-  public EntityBean signature(@RequestParam String wxid,@RequestParam String url) {
+  public EntityBean signature(@RequestParam String wxid, @RequestParam String url) {
     return weChatService.signature(wxid, url);
   }
 
@@ -29,7 +29,7 @@ public class WeChatController {
   }
 
   @PostMapping("/addwxcfg")
-  public boolean addWxConfig(@RequestParam String appid, @RequestParam String appsecret){
+  public boolean addWxConfig(@RequestParam String appid, @RequestParam String appsecret) {
     return weChatService.addWxConfig(appid, appsecret);
   }
 

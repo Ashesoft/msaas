@@ -4,8 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.longrise.msaas"})
@@ -14,8 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 //@EnableScheduling // 开启定时任务注解 @Scheduled + cron 表达式
 public class MsaasWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MsaasWebApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(MsaasWebApplication.class, args);
+  }
 
 }

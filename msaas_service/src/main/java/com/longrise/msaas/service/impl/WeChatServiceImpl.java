@@ -53,12 +53,12 @@ public class WeChatServiceImpl implements WeChatService {
   @Autowired
   public WeChatServiceImpl(@NonNull RestTemplate restTemplate, WeChatTokenCache weChatTokenCache, WeChatMapping weChatMapping) {
     this.restTemplate = restTemplate;
-    this.weChatTokenCache=weChatTokenCache;
+    this.weChatTokenCache = weChatTokenCache;
     this.weChatMapping = weChatMapping;
   }
 
   @Override
-  public EntityBean signature(String wxid,String url) {
+  public EntityBean signature(String wxid, String url) {
     String ticket = getTicket(wxid);
     EntityBean sign = SignatureTool.sign(ticket, url);
     sign.put("appid", getAppidById(wxid));
@@ -76,16 +76,15 @@ public class WeChatServiceImpl implements WeChatService {
    * 4. 拉取用户信息
    * <p>
    * <a href='https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html'>详细说明</a>
-   *
    */
   @Override
   public EntityBean getWxUserInfo(String code, String wxid, String openid) {
     EntityBean user_token, user_info;
-    if(StringUtils.isEmpty(openid)){
-      user_token = getOrRefreshToken( code,  wxid, null,null);
-    }else{
+    if (StringUtils.isEmpty(openid)) {
+      user_token = getOrRefreshToken(code, wxid, null, null);
+    } else {
       user_info = getUerInfoByStore(openid);
-      if(Objects.nonNull(user_info)){
+      if (Objects.nonNull(user_info)) {
         return user_info;
       }
       user_token = getAccessTokenAndOpenid(code, wxid, openid);
@@ -93,9 +92,9 @@ public class WeChatServiceImpl implements WeChatService {
 
     String user = restTemplate.getForObject(String.format(user_url, user_token.getString("access_token"), user_token.getString("openid")), String.class);
     try {
-      user_info =  new ObjectMapper().readValue(user, EntityBean.class);
-      if(user_info.containsKey("errcode")){
-       throw new APIException(5001, user_info.getString("errmsg"));
+      user_info = new ObjectMapper().readValue(user, EntityBean.class);
+      if (user_info.containsKey("errcode")) {
+        throw new APIException(5001, user_info.getString("errmsg"));
       }
       weChatTokenCache.putWechatToken(7200, openid, user);
       return user_info;
@@ -103,10 +102,10 @@ public class WeChatServiceImpl implements WeChatService {
       throw new APIException(5001, "user 反序列化失败");
     }
   }
-  
+
   private EntityBean getUerInfoByStore(String openid) {
     String userstr = weChatTokenCache.getWeChatToken(openid);
-    if(!StringUtils.isEmpty(userstr)){
+    if (!StringUtils.isEmpty(userstr)) {
       try {
         return new ObjectMapper().readValue(userstr, EntityBean.class);
       } catch (JsonProcessingException e) {
@@ -119,8 +118,8 @@ public class WeChatServiceImpl implements WeChatService {
   @Override
   public boolean addWxConfig(String appid, String appsecret) {
     EntityBean cfg = new EntityBean();
-    cfg.put("appid",appid);
-    cfg.put("appsecret",appsecret);
+    cfg.put("appid", appid);
+    cfg.put("appsecret", appsecret);
     return weChatMapping.addWeChatCfg(cfg);
   }
 
@@ -142,9 +141,9 @@ public class WeChatServiceImpl implements WeChatService {
     EntityBean openidAndAccessToken;
     String key1 = String.format("openid_%s_access", openid);
     String openid_access_token = weChatTokenCache.getWeChatToken(key1);
-    if(StringUtils.isEmpty(openid_access_token)){
+    if (StringUtils.isEmpty(openid_access_token)) {
       openidAndAccessToken = getUerTokenBean(code, wxid, openid, key1);
-    }else{
+    } else {
       openidAndAccessToken = new EntityBean();
       openidAndAccessToken.put("access_token", openid_access_token);
       openidAndAccessToken.put("openid", openid);
@@ -155,9 +154,9 @@ public class WeChatServiceImpl implements WeChatService {
   private EntityBean getUerTokenBean(String code, String wxid, String openid, String key1) {
     String key2 = String.format("openid_%s_refresh", openid);
     String openid_refresh_token = weChatTokenCache.getWeChatToken(key2);
-    if(StringUtils.isEmpty(openid_refresh_token)){
+    if (StringUtils.isEmpty(openid_refresh_token)) {
       return getOrRefreshToken(code, wxid, key1, key2);
-    }else{
+    } else {
       return getOrRefreshToken(openid_refresh_token, wxid, key1);
     }
   }
@@ -165,19 +164,19 @@ public class WeChatServiceImpl implements WeChatService {
   /**
    * refresh_token没有过期, 刷新access_token
    */
-  private EntityBean getOrRefreshToken(String refresh_token, String wxid, String key1){
+  private EntityBean getOrRefreshToken(String refresh_token, String wxid, String key1) {
     String appid = getAppidById(wxid);
     String ret = restTemplate.getForObject(String.format(user_refresh_token_url, appid, refresh_token), String.class);
     try {
       EntityBean user_bean_token = new ObjectMapper().readValue(ret, EntityBean.class);
-      if(user_bean_token.containsKey("errcode")){
-        throw  new APIException(5001, user_bean_token.getString("errmsg"));
+      if (user_bean_token.containsKey("errcode")) {
+        throw new APIException(5001, user_bean_token.getString("errmsg"));
       }
       String acc_token = user_bean_token.getString("access_token");
       int expires = user_bean_token.getInt("expires_in");
       weChatTokenCache.putWechatToken(expires, key1, acc_token);
       return user_bean_token;
-    }catch (JsonProcessingException e){
+    } catch (JsonProcessingException e) {
       throw new APIException(5001, "获取用户授权访问token, 反序列化出错");
     }
   }
@@ -185,42 +184,43 @@ public class WeChatServiceImpl implements WeChatService {
   /**
    * refresh_token过期, 重新获取access_token
    */
-  private EntityBean getOrRefreshToken(String code, String wxid, String key1,String key2){
+  private EntityBean getOrRefreshToken(String code, String wxid, String key1, String key2) {
     String appsecret = getAppsecretById(wxid);
     String appid = getAppidById(wxid);
     String ret = restTemplate.getForObject(String.format(user_token_url, appid, appsecret, code), String.class);
     try {
       EntityBean user_bean_token = new ObjectMapper().readValue(ret, EntityBean.class);
-      if(user_bean_token.containsKey("errcode")){
+      if (user_bean_token.containsKey("errcode")) {
         throw new APIException(5001, user_bean_token.getString("errmsg"));
       }
       String acc_token = user_bean_token.getString("access_token");
       int expires = user_bean_token.getInt("expires_in");
       String refresh_token = user_bean_token.getString("refresh_token");
       String openid = user_bean_token.getString("openid");
-      if(StringUtils.isEmpty(key1)){
+      if (StringUtils.isEmpty(key1)) {
         key1 = String.format("openid_%s_access", openid);
       }
-      if(StringUtils.isEmpty(key2)){
+      if (StringUtils.isEmpty(key2)) {
         key2 = String.format("openid_%s_refresh", openid);
       }
       weChatTokenCache.putWechatToken(expires, key1, acc_token);
-      weChatTokenCache.putWechatToken(3600*24*30, key2,refresh_token);// 缓存一个月
+      weChatTokenCache.putWechatToken(3600 * 24 * 30, key2, refresh_token);// 缓存一个月
       return user_bean_token;
-    }catch (JsonProcessingException e){
+    } catch (JsonProcessingException e) {
       throw new APIException(5001, "获取用户授权访问token, 反序列化出错");
     }
   }
 
   /**
    * 获取公众号密钥
+   *
    * @param wxid 存储的id
    * @return 密钥
    */
-  private String getAppsecretById(String wxid){
-    if(storage.containsKey(wxid)){
-      return ((EntityBean)storage.get(wxid)).getString("appsecret");
-    }else{
+  private String getAppsecretById(String wxid) {
+    if (storage.containsKey(wxid)) {
+      return ((EntityBean) storage.get(wxid)).getString("appsecret");
+    } else {
       EntityBean wechatcfg = weChatMapping.getWeChatCfgById(wxid);
       storage.put(wxid, wechatcfg);
       return wechatcfg.getString("appsecret");
@@ -229,13 +229,14 @@ public class WeChatServiceImpl implements WeChatService {
 
   /**
    * 获取公众号id
+   *
    * @param wxid 存储的id
    * @return 公众号id
    */
-  private String getAppidById(String wxid){
-    if(storage.containsKey(wxid)){
-      return ((EntityBean)storage.get(wxid)).getString("appid");
-    }else{
+  private String getAppidById(String wxid) {
+    if (storage.containsKey(wxid)) {
+      return ((EntityBean) storage.get(wxid)).getString("appid");
+    } else {
       EntityBean wechatcfg = weChatMapping.getWeChatCfgById(wxid);
       storage.put(wxid, wechatcfg);
       return wechatcfg.getString("appid");
@@ -248,7 +249,7 @@ public class WeChatServiceImpl implements WeChatService {
   private String getToken(String wxid) {
     String key = String.format("access_%s_token", wxid);
     String access_token = weChatTokenCache.getWeChatToken(key);
-    if(StringUtils.isEmpty(access_token)){
+    if (StringUtils.isEmpty(access_token)) {
       String appsecret = getAppsecretById(wxid);
       String appid = getAppidById(wxid);
       EntityBean access_token_bean = restTemplate.getForObject(String.format(token_url, appid, appsecret), EntityBean.class);
@@ -267,13 +268,13 @@ public class WeChatServiceImpl implements WeChatService {
   private String getTicket(String wxid) {
     String key = String.format("access_%s_ticket", wxid);
     String ticket = weChatTokenCache.getWeChatToken(key);
-    if(StringUtils.isEmpty((ticket))){
+    if (StringUtils.isEmpty((ticket))) {
       String access_token = getToken(wxid);
       EntityBean ticket_bean = restTemplate.getForObject(String.format(ticket_url, access_token), EntityBean.class);
       if (Objects.nonNull(ticket_bean) && ticket_bean.containsKey("ticket")) {
         int expire = ticket_bean.getInt("expires_in");
         ticket = ticket_bean.getString("ticket");
-        weChatTokenCache.putWechatToken(expire, key,ticket);
+        weChatTokenCache.putWechatToken(expire, key, ticket);
       }
     }
     return ticket;

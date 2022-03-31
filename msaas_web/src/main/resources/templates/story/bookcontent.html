@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title th:text="${content.curr_data.stitlename}">脂砚斋重评石头记</title>
     <style>
         body,p {margin: 0;padding: 5px;}
@@ -16,6 +16,9 @@
         .mingzhuPage {text-align: center;}
         .returnIndex,.prevPage,.nextPage,.prevPage1,.nextPage1 {display: inline-block;padding: 0 10px;height: 24px;line-height: 24px;border: 1px solid #b52d1d;background: #d2412e;border-radius: 5px;color: #fff;margin-right: 10px;font-size: 12px;vertical-align: middle}
         .prevPage1,.nextPage1 {border: 1px solid #ddd;background: #eee;color: #666}
+
+
+
     </style>
 </head>
 <body>
@@ -26,9 +29,11 @@
         <div class="mingzhuPage">
             <a href="/book/list" class="returnIndex">【回目录】</a>
             <span th:if="${content.prev_sid} eq '没有了'" class="prevPage1">上一篇:没有了</span>
-            <a th:if="${content.prev_sid} ne '没有了'" th:href="@{'/book/content/' + ${content.prev_sid}}" class="prevPage">上一篇</a>
+            <a th:if="${content.prev_sid} ne '没有了'" th:href="@{'/book/content/' + ${content.prev_sid}}"
+               class="prevPage">上一篇</a>
             <span th:if="${content.next_sid} eq '没有了'" class="nextPage1">下一篇:没有了</span>
-            <a th:if="${content.next_sid} ne '没有了'" th:href="@{'/book/content/' + ${content.next_sid}}" class="nextPage">下一篇</a>
+            <a th:if="${content.next_sid} ne '没有了'" th:href="@{'/book/content/' + ${content.next_sid}}"
+               class="nextPage">下一篇</a>
         </div>
     </div>
 </div>

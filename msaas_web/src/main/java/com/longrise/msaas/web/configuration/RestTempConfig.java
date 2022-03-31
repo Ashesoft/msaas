@@ -13,12 +13,12 @@ public class RestTempConfig {
   private RestTemplateBuilder restTemplateBuilder;
 
   @Autowired
-  public RestTempConfig(RestTemplateBuilder restTemplateBuilder){
+  public RestTempConfig(RestTemplateBuilder restTemplateBuilder) {
     this.restTemplateBuilder = restTemplateBuilder;
   }
 
   @Bean
-  public RestTemplate restTemplate(){
+  public RestTemplate restTemplate() {
     return restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(20)).setReadTimeout(Duration.ofSeconds(20)).build();
   }
 }

@@ -14,23 +14,23 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CodeSheepConfigTest{
-    @Autowired
-    private Environment environment;
+public class CodeSheepConfigTest {
+  @Autowired
+  private Environment environment;
 
-    @Autowired
-    private StringEncryptor codeSheepEncryptorBean;
+  @Autowired
+  private StringEncryptor codeSheepEncryptorBean;
 
-    @Test
-    public void encodeTest(){
-        String dbpwd = "iosplay";
-        System.err.println(codeSheepEncryptorBean.encrypt(dbpwd));
-    }
+  @Test
+  public void encodeTest() {
+    String dbpwd = "iosplay";
+    System.err.println(codeSheepEncryptorBean.encrypt(dbpwd));
+  }
 
-    @Test
-    public void decodeTest(){
-        String dbpwd = environment.getProperty("spring.datasource.password");
-        System.out.println("dbpwd = " + dbpwd);
-        System.err.println(codeSheepEncryptorBean.decrypt("JZKecUE8aqUuOLJnbI4zKyNEARWx3MxPNOdLXz/5IzYBatH/mU3JOdLfds/NCwTr"));
-    }
+  @Test
+  public void decodeTest() {
+    String dbpwd = environment.getProperty("spring.datasource.password");
+    System.out.println("dbpwd = " + dbpwd);
+    System.err.println(codeSheepEncryptorBean.decrypt("JZKecUE8aqUuOLJnbI4zKyNEARWx3MxPNOdLXz/5IzYBatH/mU3JOdLfds/NCwTr"));
+  }
 }

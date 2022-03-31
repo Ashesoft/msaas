@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class WeChatTokenCacheConfig {
 
   @Bean
-  public WeChatTokenCache getWeChatTokenCache(){
+  public WeChatTokenCache getWeChatTokenCache() {
     return new WeChatTokenCache();
   }
 }

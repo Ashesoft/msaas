@@ -45,10 +45,10 @@ address:
     redirect: file:D:/videos/
 
 jasypt:
-#  resolver:
-#    bean:
-#  detector:
-#    bean:
+  #  resolver:
+  #    bean:
+  #  detector:
+  #    bean:
   encryptor:
     bean: codeSheepEncryptorBean
     property:
@@ -73,20 +73,20 @@ jwt:
 # 微信jssdk使用微信能力的基本配置
 wx:
   config:
-#    appid: wxc87009e90041c1b4
-#    appsecret: 5cc358d6031d0da1a87fbe4483563b30
-#   获取assess_token 几乎所有公众号api都要用它
+    #    appid: wxc87009e90041c1b4
+    #    appsecret: 5cc358d6031d0da1a87fbe4483563b30
+    #   获取assess_token 几乎所有公众号api都要用它
     token_url: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
-#   获取临时(7200s)jsapi的票根, 用于JS-SDK使用权限签名算法
+    #   获取临时(7200s)jsapi的票根, 用于JS-SDK使用权限签名算法
     ticket_url: https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%s
-#   获取用户信息授权时需要重定向获取code
+    #   获取用户信息授权时需要重定向获取code
     redirect_url: https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_base&state=123#wechat_redirect
-#   通过code换取网页获取用户信息授权access_token
+    #   通过code换取网页获取用户信息授权access_token
     user_token_url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code
-#   刷新过期的用户授权访问的access_token
+    #   刷新过期的用户授权访问的access_token
     user_refresh_token_url: https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%s&grant_type=refresh_token&refresh_token=%s
-#   user_url: https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN
-#   网页授权获取用户信息
+    #   user_url: https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN
+    #   网页授权获取用户信息
     user_url: https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN
 ---
 # 开发环境

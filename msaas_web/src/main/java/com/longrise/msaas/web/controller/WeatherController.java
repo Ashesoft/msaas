@@ -19,11 +19,11 @@ public class WeatherController {
 
   @CrossOrigin
   @GetMapping("/weather")
-  public String getWeather(@RequestParam String district_id){
+  public String getWeather(@RequestParam String district_id) {
     EntityBean bean = new EntityBean();
     bean.put("district_id", district_id);
     bean.put("data_type", this.DATA_TYPE);
     bean.put("ak", this.AK);
-    return this.restTemplate.getForObject(URL, String.class,bean);
+    return this.restTemplate.getForObject(URL, String.class, bean);
   }
 }

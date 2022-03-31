@@ -1,28 +1,29 @@
 package com.longrise.msaas.global.domain;
 
 public class APIException extends RuntimeException {
-    private int status;
-    private String msg;
+  private int status;
+  private String msg;
 
-    public APIException(){
-        this.status = 4004;
-        this.msg = super.getMessage();
-    }
-    public APIException(String msg){
-        this(4004, msg);
-    }
+  public APIException() {
+    this.status = 4004;
+    this.msg = super.getMessage();
+  }
 
-    public APIException(int status, String msg) {
-        super(msg);
-        this.status = status;
-        this.msg = msg;
-    }
+  public APIException(String msg) {
+    this(4004, msg);
+  }
 
-    public int getStatus() {
-        return status;
-    }
+  public APIException(int status, String msg) {
+    super(msg);
+    this.status = status;
+    this.msg = msg;
+  }
 
-    public String getMsg() {
-        return msg;
-    }
+  public int getStatus() {
+    return status;
+  }
+
+  public String getMsg() {
+    return msg;
+  }
 }

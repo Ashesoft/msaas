@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WeChatTokenCacheTest {
-  
+
   @Autowired
   private WeChatTokenCache weChatTokenCache;
 
@@ -37,8 +37,8 @@ public class WeChatTokenCacheTest {
         e.printStackTrace();
         System.out.println("出错了");
       }
-      System.out.print("val1==>"+val1+"\t");
-      System.out.println("val2==>"+val2);
+      System.out.print("val1==>" + val1 + "\t");
+      System.out.println("val2==>" + val2);
     }
   }
 
