@@ -3,6 +3,7 @@ package com.longrise.msaas.web.global;
 import com.longrise.msaas.global.domain.WeChatTokenCache;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -13,19 +14,22 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WeChatTokenCacheTest {
+  
+  @Autowired
+  private WeChatTokenCache weChatTokenCache;
 
   @Test
   public void TestGetToken() {
     for (int i = 0; i < 30; i++) {
-      String val1 = WeChatTokenCache.getInstance().getWeChatToken("a");
-      String val2 = WeChatTokenCache.getInstance().getWeChatToken("b");
+      String val1 = weChatTokenCache.getWeChatToken("access_token");
+      String val2 = weChatTokenCache.getWeChatToken("ticket");
       if (Objects.isNull(val1)) {
         val1 = String.valueOf(Math.random());
-        WeChatTokenCache.getInstance().putWechatToken(5, "a", val1);
+        weChatTokenCache.putWechatToken(5, "access_token", val1);
       }
       if (Objects.isNull(val2)) {
         val2 = UUID.randomUUID().toString();
-        WeChatTokenCache.getInstance().putWechatToken(10, "b", val2);
+        weChatTokenCache.putWechatToken(10, "ticket", val2);
       }
       try {
         TimeUnit.SECONDS.sleep(1);

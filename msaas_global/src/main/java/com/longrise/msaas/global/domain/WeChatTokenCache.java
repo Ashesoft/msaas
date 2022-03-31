@@ -1,56 +1,42 @@
 package com.longrise.msaas.global.domain;
 
-import java.util.Objects;
 import java.util.concurrent.*;
 
 public class WeChatTokenCache {
-  private static EntityBean tokens = new EntityBean();
-  private static DelayQueue<WeChatToken> caches = new DelayQueue<>();
-  private static WeChatTokenCache instance;
+  private  EntityBean tokens = new EntityBean();
+  private  DelayQueue<WeChatToken> caches = new DelayQueue<>();
 
-  private WeChatTokenCache(){}
-
-  public static WeChatTokenCache getInstance() {
-    if(Objects.isNull(instance)){
-      synchronized (WeChatTokenCache.class){
-        if(Objects.isNull(instance)){
-          Executors.newSingleThreadExecutor().execute(()->{
-            while (true){
-              try {
-                WeChatToken weChatToken = caches.take();
-                tokens.remove(weChatToken.getTokenKey());
-              } catch (InterruptedException e) {
-                e.printStackTrace();
-              }
-            }
-          });
-          instance = new WeChatTokenCache();
-          return instance;
+  public WeChatTokenCache() {
+    Executors.newSingleThreadExecutor().execute(() -> {
+      while (true) {
+        try {
+          WeChatToken weChatToken = this.caches.take();
+          this.tokens.remove(weChatToken.getTokenKey());
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
       }
-    }
-    return instance;
+    });
   }
-
-  public String getWeChatToken(String tokenKey){
-    if(tokens.containsKey(tokenKey)){
-      return tokens.getString(tokenKey);
+  public String getWeChatToken(String tokenKeyType){
+    if(this.tokens.containsKey(tokenKeyType)){
+      return this.tokens.getString(tokenKeyType);
     }
     return null;
   }
 
-  public void putWechatToken (int expire, String tokenKey, String tokenVal){
-    tokens.put(tokenKey, tokenVal);
-    caches.add(WeChatToken.getInstance(expire, tokenKey));
+  public void putWechatToken (int expire, String tokenKeyType, String tokenVal){
+    this.tokens.put(tokenKeyType, tokenVal);
+    this.caches.add(WeChatToken.getInstance(expire, tokenKeyType));
   }
 
 
   private static class WeChatToken implements Delayed{
     private long expire;
-    private String tokenKey;
+    private String tokenKeyType;
 
-    private WeChatToken(long expire , String tokenKey){
-      this.tokenKey = tokenKey;
+    private WeChatToken(long expire , String tokenKeyType){
+      this.tokenKeyType = tokenKeyType;
       this.expire = expire;
     }
 
@@ -76,7 +62,7 @@ public class WeChatTokenCache {
     }
 
     public String getTokenKey() {
-      return this.tokenKey;
+      return this.tokenKeyType;
     }
   }
 }

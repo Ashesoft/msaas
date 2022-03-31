@@ -23,7 +23,7 @@ public class CodeSheepConfigTest{
 
     @Test
     public void encodeTest(){
-        String dbpwd = "root";
+        String dbpwd = "iosplay";
         System.err.println(codeSheepEncryptorBean.encrypt(dbpwd));
     }
 

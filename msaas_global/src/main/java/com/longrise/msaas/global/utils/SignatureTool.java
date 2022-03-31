@@ -24,7 +24,7 @@ public final class SignatureTool {
       crypt.update(string1.getBytes(StandardCharsets.UTF_8));
       signature = byteToHex(crypt.digest());
     } catch (NoSuchAlgorithmException e) {
-      throw new APIException(5000, "加言失败");
+      throw new APIException(5000, "加盐失败");
     }
     EntityBean ret = new EntityBean();
     ret.put("url", url);

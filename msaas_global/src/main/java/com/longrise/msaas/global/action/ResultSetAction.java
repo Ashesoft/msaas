@@ -10,6 +10,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 对 resultset 结果集进一步封装处理
@@ -49,7 +50,11 @@ public class ResultSetAction{
         if (rs.next()){
             bean = new EntityBean();
             for (int j = 1, columnCount = md.getColumnCount(); j <= columnCount; j++) {
-                bean.put(md.getColumnName(j), rs.getObject(j));
+                Object val = rs.getObject(j);
+                if(Objects.isNull(val)){
+                    continue;
+                }
+                bean.put(md.getColumnName(j), val);
             }
         }
         if(rs.next()){
