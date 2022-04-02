@@ -125,7 +125,8 @@ public class WeChatServiceImpl implements WeChatService {
 
   @Override
   public String autoAuth(String wxid) {
-    return getAppidById(wxid);
+    String appid = getAppidById(wxid);
+    return String.format(redirect_url, appid);
   }
 
   /**
