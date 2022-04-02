@@ -6,7 +6,7 @@ import com.longrise.msaas.global.domain.APIException;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.domain.WeChatTokenCache;
 import com.longrise.msaas.global.utils.SignatureTool;
-import com.longrise.msaas.mapping.WeChatMapping;
+import com.longrise.msaas.mapping.WeChatConfigMapping;
 import com.longrise.msaas.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,15 +46,15 @@ public class WeChatServiceImpl implements WeChatService {
 
   private RestTemplate restTemplate;
   private WeChatTokenCache weChatTokenCache;
-  private WeChatMapping weChatMapping;
+  private WeChatConfigMapping weChatConfigMapping;
 
   private EntityBean storage = new EntityBean();
 
   @Autowired
-  public WeChatServiceImpl(@NonNull RestTemplate restTemplate, WeChatTokenCache weChatTokenCache, WeChatMapping weChatMapping) {
+  public WeChatServiceImpl(@NonNull RestTemplate restTemplate, WeChatTokenCache weChatTokenCache, WeChatConfigMapping weChatConfigMapping) {
     this.restTemplate = restTemplate;
     this.weChatTokenCache = weChatTokenCache;
-    this.weChatMapping = weChatMapping;
+    this.weChatConfigMapping = weChatConfigMapping;
   }
 
   @Override
@@ -120,7 +120,7 @@ public class WeChatServiceImpl implements WeChatService {
     EntityBean cfg = new EntityBean();
     cfg.put("appid", appid);
     cfg.put("appsecret", appsecret);
-    return weChatMapping.addWeChatCfg(cfg);
+    return weChatConfigMapping.addWeChatCfg(cfg);
   }
 
   @Override
@@ -222,7 +222,7 @@ public class WeChatServiceImpl implements WeChatService {
     if (storage.containsKey(wxid)) {
       return ((EntityBean) storage.get(wxid)).getString("appsecret");
     } else {
-      EntityBean wechatcfg = weChatMapping.getWeChatCfgById(wxid);
+      EntityBean wechatcfg = weChatConfigMapping.getWeChatCfgById(wxid);
       storage.put(wxid, wechatcfg);
       return wechatcfg.getString("appsecret");
     }
@@ -238,7 +238,7 @@ public class WeChatServiceImpl implements WeChatService {
     if (storage.containsKey(wxid)) {
       return ((EntityBean) storage.get(wxid)).getString("appid");
     } else {
-      EntityBean wechatcfg = weChatMapping.getWeChatCfgById(wxid);
+      EntityBean wechatcfg = weChatConfigMapping.getWeChatCfgById(wxid);
       storage.put(wxid, wechatcfg);
       return wechatcfg.getString("appid");
     }
