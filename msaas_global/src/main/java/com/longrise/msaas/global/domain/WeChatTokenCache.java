@@ -42,13 +42,13 @@ public class WeChatTokenCache {
       return null;
     }
     long expire = tokenBean.getLong("expire");
-    String tokenkey = tokenBean.getString("tokenkey");
+    String tokenval = tokenBean.getString("tokenval");
     if (expire > System.currentTimeMillis()) {
-      return tokenkey;
+      return tokenval;
     } else {
       EntityBean bean = new EntityBean();
       bean.put("beanname", "wechatcache");
-      bean.put("tokenkey", tokenkey);
+      bean.put("tokenkey", tokenKey);
       bean.delete();
     }
     return null;

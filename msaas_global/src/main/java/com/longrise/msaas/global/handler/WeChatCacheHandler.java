@@ -29,7 +29,7 @@ public class WeChatCacheHandler {
    * @return 公众号配置信息
    */
   public EntityBean getWeChatToken(String tokenkey) {
-    String sql = "select tokenval from wechatcache where tokenkey=:tokenkey";
+    String sql = "select tokenval,expire from wechatcache where tokenkey=:tokenkey";
     EntityBean bean = new EntityBean(1);
     bean.put("tokenkey", tokenkey);
     return jdbcExcutor.query(sql, bean);
