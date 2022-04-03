@@ -10,9 +10,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeChatCache {
-  private EntityBean tokens = new EntityBean();
-  private DelayQueue<WeChatToken> caches = new DelayQueue<>();
-  private WeChatCacheHandler weChatCacheHandler;
+  private final EntityBean tokens = new EntityBean();
+  private final DelayQueue<WeChatToken> caches = new DelayQueue<>();
+  private final WeChatCacheHandler weChatCacheHandler;
 
   public WeChatCache(WeChatCacheHandler weChatCacheHandler) {
     this.weChatCacheHandler = weChatCacheHandler;
@@ -62,8 +62,8 @@ public class WeChatCache {
 
 
   private static class WeChatToken implements Delayed {
-    private long expire;
-    private String tokenKey;
+    private final long expire;
+    private final String tokenKey;
 
     private WeChatToken(long expire, String tokenKey) {
       this.tokenKey = tokenKey;
@@ -71,13 +71,13 @@ public class WeChatCache {
     }
 
     public static WeChatToken getInstance(int expire, String key) {
-      long extime = System.currentTimeMillis() + expire * 1000;
+      long extime = System.currentTimeMillis() + expire * 1000L;
       return new WeChatToken(extime, key);
     }
 
     @Override
     public long getDelay(TimeUnit unit) {
-      long diff = this.getExpire() - System.currentTimeMillis();
+      long diff = expire - System.currentTimeMillis();
       return unit.convert(diff, TimeUnit.MILLISECONDS);
     }
 
@@ -85,10 +85,6 @@ public class WeChatCache {
     public int compareTo(Delayed o) {
       boolean bool = this.getDelay(TimeUnit.MILLISECONDS) >= o.getDelay(TimeUnit.MILLISECONDS);
       return bool ? 1 : -1;
-    }
-
-    public long getExpire() {
-      return this.expire;
     }
 
     public String getTokenKey() {
