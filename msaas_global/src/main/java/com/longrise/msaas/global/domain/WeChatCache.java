@@ -9,12 +9,12 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class WeChatTokenCache {
+public class WeChatCache {
   private EntityBean tokens = new EntityBean();
   private DelayQueue<WeChatToken> caches = new DelayQueue<>();
   private WeChatCacheHandler weChatCacheHandler;
 
-  public WeChatTokenCache(WeChatCacheHandler weChatCacheHandler) {
+  public WeChatCache(WeChatCacheHandler weChatCacheHandler) {
     this.weChatCacheHandler = weChatCacheHandler;
     Executors.newSingleThreadExecutor().execute(() -> {
       while (true) {

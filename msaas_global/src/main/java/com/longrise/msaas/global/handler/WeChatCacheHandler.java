@@ -3,17 +3,20 @@ package com.longrise.msaas.global.handler;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.excutor.JDBCExcutor;
 import com.longrise.msaas.global.utils.IdWorker;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
 @Repository
 public class WeChatCacheHandler {
-  @Autowired
-  private JDBCExcutor jdbcExcutor;
+  private final JDBCExcutor jdbcExcutor;
 
-  private IdWorker idWorker = new IdWorker(1, 1, 1);
+  private final IdWorker idWorker;
+
+  public WeChatCacheHandler(JDBCExcutor jdbcExcutor) {
+    this.jdbcExcutor = jdbcExcutor;
+    this.idWorker = new IdWorker(1, 1, 1);
+  }
 
   private EntityBean getTokenBean() {
     EntityBean tokenBean = new EntityBean();
@@ -47,7 +50,7 @@ public class WeChatCacheHandler {
     tokenBean.put("id", idWorker.nextId());
     tokenBean.put("tokenkey", tokenkey);
     tokenBean.put("tokenval", tokenval);
-    tokenBean.put("expire", System.currentTimeMillis() + expire * 1000);
+    tokenBean.put("expire", System.currentTimeMillis() + expire * 1000L);
     return tokenBean.insert();
   }
 }

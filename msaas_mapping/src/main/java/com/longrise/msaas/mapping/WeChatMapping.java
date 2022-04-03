@@ -3,15 +3,19 @@ package com.longrise.msaas.mapping;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.global.excutor.JDBCExcutor;
 import com.longrise.msaas.global.utils.IdWorker;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class WeChatConfigMapping {
-  @Autowired
-  private JDBCExcutor jdbcExcutor;
+public class WeChatMapping {
+  private final JDBCExcutor jdbcExcutor;
 
-  private IdWorker idWorker = new IdWorker(1, 1, 1);
+  private final IdWorker idWorker;
+
+  public WeChatMapping(JDBCExcutor jdbcExcutor) {
+    this.jdbcExcutor = jdbcExcutor;
+    this.idWorker  = new IdWorker(1, 1, 1);
+  }
+
 
   /**
    * 根据公众号id获取公众号配置信息
