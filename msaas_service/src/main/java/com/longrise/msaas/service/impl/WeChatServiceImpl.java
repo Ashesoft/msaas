@@ -81,6 +81,7 @@ public class WeChatServiceImpl implements WeChatService {
     EntityBean user_token, user_info;
     if (StringUtils.isEmpty(openid)) {
       user_token = getOrRefreshToken(code, wxid, null, null);
+      openid = user_token.getString("openid");
     } else {
       user_info = getUerInfoByStore(openid);
       if (Objects.nonNull(user_info)) {
@@ -89,7 +90,7 @@ public class WeChatServiceImpl implements WeChatService {
       user_token = getAccessTokenAndOpenid(code, wxid, openid);
     }
 
-    String user = restTemplate.getForObject(String.format(user_url, user_token.getString("access_token"), user_token.getString("openid")), String.class);
+    String user = restTemplate.getForObject(String.format(user_url, user_token.getString("access_token"), openid), String.class);
     try {
       user_info = new ObjectMapper().readValue(user, EntityBean.class);
       if (user_info.containsKey("errcode")) {
@@ -108,7 +109,7 @@ public class WeChatServiceImpl implements WeChatService {
       try {
         return new ObjectMapper().readValue(userstr, EntityBean.class);
       } catch (JsonProcessingException e) {
-        e.printStackTrace();
+        throw new APIException(5001, "user 反序列化失败");
       }
     }
     return null;
