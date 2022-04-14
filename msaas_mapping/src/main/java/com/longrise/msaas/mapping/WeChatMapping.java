@@ -13,7 +13,7 @@ public class WeChatMapping {
 
   public WeChatMapping(JDBCExcutor jdbcExcutor) {
     this.jdbcExcutor = jdbcExcutor;
-    this.idWorker  = new IdWorker(1, 1, 1);
+    this.idWorker = new IdWorker(1, 1, 1);
   }
 
 
@@ -36,9 +36,13 @@ public class WeChatMapping {
    * @param cfg 配置信息
    * @return 是否成功
    */
-  public boolean addWeChatCfg(EntityBean cfg) {
-    cfg.put("id", idWorker.nextId());
+  public String addWeChatCfg(EntityBean cfg) {
+    long id = idWorker.nextId();
+    cfg.put("id", id);
     cfg.put("beanname", "wechatconfig");
-    return cfg.insert();
+    if (cfg.insert()) {
+      return String.valueOf(id);
+    }
+    return "配置失败";
   }
 }

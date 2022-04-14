@@ -2,6 +2,7 @@ package com.longrise.msaas.global.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.longrise.msaas.global.annotation.NoPackage;
 import com.longrise.msaas.global.domain.APIException;
 import com.longrise.msaas.global.domain.ResultV0;
 import org.springframework.core.MethodParameter;
@@ -29,6 +30,10 @@ public class ResultPackage implements ResponseBodyAdvice<Object> {
   public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<?
     extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest,
                                 ServerHttpResponse serverHttpResponse) {
+//    判断方法上是否有NoPackage注解, 有则返回原始数据, 否则向下执行返回包装后的数据
+    if (methodParameter.hasMethodAnnotation(NoPackage.class)) {
+      return o;
+    }
     // String 类型不能直接包装, 所以要进行特别的处理
     if (methodParameter.getGenericParameterType().equals(String.class)) {
       ObjectMapper objectMapper = new ObjectMapper();

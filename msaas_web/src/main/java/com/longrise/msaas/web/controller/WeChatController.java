@@ -1,5 +1,6 @@
 package com.longrise.msaas.web.controller;
 
+import com.longrise.msaas.global.annotation.NoPackage;
 import com.longrise.msaas.global.domain.EntityBean;
 import com.longrise.msaas.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,18 @@ public class WeChatController {
   }
 
   @PostMapping("/addwxcfg")
-  public boolean addWxConfig(@RequestParam String appid, @RequestParam String appsecret) {
+  public String addWxConfig(@RequestParam String appid, @RequestParam String appsecret) {
     return weChatService.addWxConfig(appid, appsecret);
   }
 
   @GetMapping("/autoauth")
   public String autoAuth(@RequestParam String wxid) {
     return weChatService.autoAuth(wxid);
+  }
+
+  @NoPackage
+  @GetMapping("/iswxserver")
+  public String isWeChatServer(@RequestParam String signature, @RequestParam String timestamp, @RequestParam String nonce, @RequestParam String echostr) {
+    return weChatService.checkSign(signature, timestamp, nonce, echostr);
   }
 }

@@ -116,7 +116,7 @@ public class WeChatServiceImpl implements WeChatService {
   }
 
   @Override
-  public boolean addWxConfig(String appid, String appsecret) {
+  public String addWxConfig(String appid, String appsecret) {
     EntityBean cfg = new EntityBean();
     cfg.put("appid", appid);
     cfg.put("appsecret", appsecret);
@@ -127,6 +127,15 @@ public class WeChatServiceImpl implements WeChatService {
   public String autoAuth(String wxid) {
     String appid = getAppidById(wxid);
     return String.format(redirect_url, appid);
+  }
+
+  @Override
+  public String checkSign(String signature, String timestamp, String nonce, String echostr) {
+    String local_signature = SignatureTool.sign("longrise", timestamp, nonce);
+    if (Objects.equals(local_signature, signature)) {
+      return echostr;
+    }
+    return "";
   }
 
   /**
