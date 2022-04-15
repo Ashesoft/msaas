@@ -23,17 +23,15 @@ public class ResultPackage implements ResponseBodyAdvice<Object> {
   @Override
   public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
     // 如果接口返回的类型本身就是ResultV0那就是没有必要进行额外的操作, 返回false
-    return !methodParameter.getParameterType().equals(ResultV0.class);
+    // 判断方法上是否有NoPackage注解, 有则返回原始数据, 否则向下执行返回包装后的数据
+    return !methodParameter.hasMethodAnnotation(NoPackage.class)
+      || !methodParameter.getParameterType().equals(ResultV0.class);
   }
 
   @Override
   public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<?
     extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest,
                                 ServerHttpResponse serverHttpResponse) {
-//    判断方法上是否有NoPackage注解, 有则返回原始数据, 否则向下执行返回包装后的数据
-    if (methodParameter.hasMethodAnnotation(NoPackage.class)) {
-      return o;
-    }
     // String 类型不能直接包装, 所以要进行特别的处理
     if (methodParameter.getGenericParameterType().equals(String.class)) {
       ObjectMapper objectMapper = new ObjectMapper();
